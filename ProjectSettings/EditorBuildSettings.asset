@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Start.unity
+    guid: 1c0250b4d1b6e6d4a868684f87610ca9
+  - enabled: 1
+    path: Assets/Scenes/Choose.unity
+    guid: c7a3ed3e9b8d3a048a17e665fbf3616c
+  - enabled: 1
+    path: Assets/Scenes/Vertical.unity
+    guid: 16c08d71364902349bf92a3d26b9d1eb
+  - enabled: 1
+    path: Assets/Scenes/Over-Head.unity
+    guid: f35d69d49ab26804d8fa4fb62f959564
+  - enabled: 1
+    path: Assets/Scenes/ConfinedSpace.unity
+    guid: 543f8371ae9097d4e97df4c858cf8943
+  - enabled: 1
+    path: Assets/Scenes/over-the-roof.unity
+    guid: 0af6cb432a4608a49bc8a743213a8428
+  m_configObjects:
+    UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 43a308cb2141f9b4eb9ba6829ae3f4cf,
+      type: 2}
+    UnityEditor.XR.ARKit.ARKitSettings: {fileID: 11400000, guid: aad40658b58d74896bfdc14d4355eff5,
+      type: 2}
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: b66f824865c18b249b71201e98023f13,
+      type: 2}
