@@ -59,7 +59,7 @@ namespace AR2
         }
 
 
-        internal void SetItems(ConfinedItemType item, GameObject ObjPrefab)
+        internal void SetItems(ConfinedItemType item,params GameObject[] ObjPrefab)
         {
             switch (item)
             {
@@ -76,7 +76,11 @@ namespace AR2
                                 }
                             }
                             // add new 
-                            Instantiate(ObjPrefab, bracket);
+                            for (int i = 0; i < ObjPrefab.Length; i++)
+                            {
+                            Instantiate(ObjPrefab[i], bracket);
+
+                            }
 
                         }
                     }
@@ -96,16 +100,25 @@ namespace AR2
                             }
 
                             // add new 
-                            GameObject gameObject = Instantiate(ObjPrefab, winch);
+                            GameObject gameObject = Instantiate(ObjPrefab[0], winch);
                             gameObject.GetComponent<ConfinedPodItem>().itemType = item;
                             rotatableWinches.Add(gameObject.GetComponent<ConfinedPodItem>());
                         }
                         winchRope.UpdateLifeline();
 
-                        if(podAnimation.canAnimate)
+                        foreach (var retractable in retractables)
                         {
-                            AnimateEverything();
+                            if (retractable.childCount > 0)
+                            {
+                                //podAnimation.canAnimate = true;
+                                AnimateEverything();
+                            }
                         }
+
+                        //if(podAnimation.canAnimate)
+                        //{
+                        //AnimateEverything();
+                        //}
                     }
                     break;
                 case ConfinedItemType.Retractable:
@@ -122,11 +135,18 @@ namespace AR2
                             }
 
                             // add new 
-                            GameObject gameObject = Instantiate(ObjPrefab, retractable);
+                            GameObject gameObject = Instantiate(ObjPrefab[0], retractable);
                             gameObject.GetComponent<ConfinedPodItem>().itemType = item;
                         }
 
-                        AnimateEverything();
+                        foreach (var winch in winches)
+                        {
+                            if (winch.childCount > 0)
+                            {
+                                AnimateEverything();
+
+                            }
+                        }
                     }
                     break;
                 default:
@@ -146,7 +166,7 @@ namespace AR2
 
         private void Update()
         {
-            if(podAnimation.canAnimate)
+            if(podAnimation.canAnimate && spawnedRadhe != null)
             {
                 spawnedRadhe.transform.position = podAnimation.radheAttachPoint.position;
                 retractableRope.endPoint.position = spawnedRadhe.retractbleEndPoint.position;

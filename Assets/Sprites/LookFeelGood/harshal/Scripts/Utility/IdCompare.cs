@@ -27,7 +27,7 @@ public class IdCompare
             {
                 if (idRecive == idCollection.data[i].id)
                 {
-                    caseMatch = 0;
+                    caseMatch = (byte)i;
                     return true;
                 }
             }
@@ -39,11 +39,12 @@ public class IdCompare
             byte size = (byte)cp.brackets[0].childCount;
             if (size == 0)
             {
+                length -= 1;
                 for (int i = 1; i < length; i++)
                 {
                     if (idRecive == idCollection.data[i].id)
                     {
-                        caseMatch = 1;
+                        caseMatch = (byte)i;
                         return true;
                     }
                 }
