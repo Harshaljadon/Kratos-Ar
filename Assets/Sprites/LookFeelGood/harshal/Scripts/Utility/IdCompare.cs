@@ -37,7 +37,7 @@ public class IdCompare
             // base installed but bracket not install
             ConfinedPod cp = containAssembly.GetComponentInChildren<ConfinedPod>();
             byte size = (byte)cp.brackets[0].childCount;
-            if (size == 0)
+            if (size == (byte)0)
             {
                 length -= 1;
                 for (int i = 1; i < length; i++)
@@ -48,6 +48,7 @@ public class IdCompare
                         return true;
                     }
                 }
+
             }
 
         }

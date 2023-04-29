@@ -18,6 +18,7 @@ namespace AR2
         public RectTransform overRoofButton;
         public RectTransform confinedSpaceButton;
         public RectTransform verticalButton;
+        public RectTransform harnessButton;
 
         public Material armMat;
         
@@ -47,11 +48,13 @@ namespace AR2
                 overRoofButton.transform.localScale = Vector3.zero;
                 confinedSpaceButton.transform.localScale = Vector3.zero;
                 verticalButton.transform.localScale = Vector3.zero;
+                harnessButton.transform.localScale = Vector3.zero;
 
                 overHeadButton.DOScale(Vector3.one, 0.5f);
                 overRoofButton.DOScale(Vector3.one, 0.5f);
                 confinedSpaceButton.DOScale(Vector3.one, 0.5f);
                 verticalButton.DOScale(Vector3.one, 0.5f);
+                harnessButton.DOScale(Vector3.one, 0.5f);
             }
             
         }
@@ -87,6 +90,12 @@ namespace AR2
             sceneName = "Vertical";
             // Invoke(nameof(LoadScene), m_time * 2);
         }
+        public void OnHarness()
+        {
+            AnimateAndLoad(harnessButton);
+            sceneName = "MainScene";
+            // Invoke(nameof(LoadScene), m_time * 2);
+        }
 
         private void Update()
         {
@@ -113,8 +122,9 @@ namespace AR2
             var targetRect = itemToAnimate.parent.GetComponent<RectTransform>().rect;
 
             Int32 childCount = itemToAnimate.childCount;
-            
-            itemToAnimate.transform.SetSiblingIndex(childCount + 1);
+            byte childs = (byte)itemToAnimate.parent.childCount;
+
+            itemToAnimate.transform.SetSiblingIndex(childs);
 
 
             Vector3 targetPosition = Vector3.zero;

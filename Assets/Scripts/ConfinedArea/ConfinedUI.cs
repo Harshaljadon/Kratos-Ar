@@ -45,7 +45,6 @@ namespace AR2
         public ScreenShotHandler screenShotHandler;
 
         public ArPlaceObject arPlaceObject;
-        
         private bool isArON = false;
 
         private CanvasGroup canvasGroup;
@@ -132,7 +131,8 @@ namespace AR2
                 cameraShotPanel.SetActive(false);
                 // ARButton.image.color = Color.white;
                 // industryObject.OnArDeactivate();
-                UpdateMenu(UiState.Animation);
+                // uistate should be none due to use get back Selection Panel remain shame as should be
+                UpdateMenu(UiState.NONE);
                 
                 arPlaceObject.b_ArMode = false;
                 arPlaceObject.OnArDeActivate();

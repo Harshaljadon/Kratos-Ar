@@ -9040,7 +9040,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.5, y: 0.5, z: 3.28}
+  m_Size: {x: 1, y: 1, z: 3.28}
   m_Center: {x: 0, y: 0, z: 1.73}
 --- !u!1 &1556776804
 GameObject:
@@ -11116,6 +11116,18 @@ MonoBehaviour:
       - m_Target: {fileID: 353985792}
         m_TargetAssemblyTypeName: 
         m_MethodName: OnARdemo
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 717575696}
+        m_TargetAssemblyTypeName: UiClickIdentify, Assembly-CSharp
+        m_MethodName: EnteringArModeCloseAllGuidePanel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -23,6 +23,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/over-the-roof.unity
     guid: 0af6cb432a4608a49bc8a743213a8428
+  - enabled: 1
+    path: Assets/Harness360/Scenes/MainScene.unity
+    guid: f682a14f2c0d02947b24ef290ef6f940
+  - enabled: 1
+    path: Assets/Harness360/Scenes/AR.unity
+    guid: 393e283a5e8b96a4896de9ba16d3da23
   m_configObjects:
     UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 43a308cb2141f9b4eb9ba6829ae3f4cf,
       type: 2}

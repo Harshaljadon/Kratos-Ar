@@ -95,6 +95,7 @@ public class UiClickIdentify : MonoBehaviour
                                     wrinchTextUi.SetActive(false);
                                     srlTextUi.SetActive(true);
                                     break;
+   
 
                             }
                         }
@@ -120,10 +121,19 @@ public class UiClickIdentify : MonoBehaviour
 
 
     }
-    // item panel have refernce of this method
+    // item panel back button have refernce of this method
     public void GettingCloseThePanel()
     {
         backClick = true;
+    }
+
+    public void EnteringArModeCloseAllGuidePanel()
+    {
+        guidePanel.SetActive(false);
+        anchorTextUi.SetActive(false);
+        bracketTextUi.SetActive(false);
+        wrinchTextUi.SetActive(false);
+        srlTextUi.SetActive(false);
     }
 }
 
