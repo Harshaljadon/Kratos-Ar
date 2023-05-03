@@ -60,7 +60,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 392008330873134654}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bd5d23e62ec40a54796e364125a49ec3, type: 3}
   m_Name: 
@@ -120,8 +120,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  underRange: 2.5
-  outRange: 3
+  underRange: 3.53284
+  outRange: 4.5
 --- !u!114 &8956739088684343325
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -135,7 +135,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectToBeDetect: {fileID: 0}
-  objUnder: 0
 --- !u!54 &2074093827641334161
 Rigidbody:
   m_ObjectHideFlags: 0
