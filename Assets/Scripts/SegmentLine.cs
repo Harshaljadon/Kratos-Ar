@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace AR2
 {
@@ -10,7 +12,8 @@ namespace AR2
     {
         public LineRenderer lineRenderer;
         float lineWidth = 0.0035f;
-        public GameObject intermidiatePrefab;
+        GameObject intermidiatePrefab;
+        public AssetReference intermidiatePrefabAssetRef;
 
         public List<Transform> transformPoints = new List<Transform>();
 
@@ -22,12 +25,41 @@ namespace AR2
         public Transform referanceTransform;
         
         List<Vector3> linePoints = new List<Vector3>();
-        
+
+        AsyncOperationHandle<GameObject> aOH;
 
         private void Start()
         {
             lineRenderer.startWidth = lineWidth;
             lineRenderer.endWidth = lineWidth;
+            if (intermidiatePrefab == null)
+            {
+                if (intermidiatePrefabAssetRef.RuntimeKeyIsValid())
+                {
+                    aOH = intermidiatePrefabAssetRef.LoadAssetAsync<GameObject>();
+                    aOH.Completed += AOH_Completed;
+                }
+
+            }
+
+        }
+
+        private void AOH_Completed(AsyncOperationHandle<GameObject> obj)
+        {
+            if (obj.Status == AsyncOperationStatus.Succeeded)
+            {
+                intermidiatePrefab = obj.Result;
+                //Addressables.Release(obj);
+            }
+        }
+
+        private void OnDisable()
+        {
+            if (intermidiatePrefabAssetRef.RuntimeKeyIsValid())
+            {
+
+            intermidiatePrefabAssetRef.ReleaseAsset();
+            }
         }
 
         public void UpdateLifeline()
@@ -39,6 +71,7 @@ namespace AR2
             lineRenderer.positionCount = linePoints.Count;
             lineRenderer.SetPositions(linePoints.ToArray());
         }
+
 
         public void UpdateIntermidiatePrefab(GameObject refPrefab)
         {
@@ -63,7 +96,8 @@ namespace AR2
             
             for (int i = 1; i < intermidiatePoints.Count; i++)
             {
-                var obj = Instantiate(intermidiatePrefab, intermidiatePoints[i], referanceTransform.rotation, transform);
+                //var obj = Instantiate(intermidiatePrefab, intermidiatePoints[i], referanceTransform.rotation, transform);
+                var obj = Instantiate(intermidiatePrefab, intermidiatePoints[i], Quaternion.Euler(0,0,0), transform);
                 intermidiates.Add(obj);
             }
         }

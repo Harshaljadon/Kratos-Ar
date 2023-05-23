@@ -1,0 +1,559 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Duplicate Asset Isolation
+  m_EditorClassIdentifier: 
+  m_GroupName: Duplicate Asset Isolation
+  m_Data:
+    m_SerializedData: []
+  m_GUID: ef002adae9dc74335822a1dcd636f2f1
+  m_SerializeEntries:
+  - m_GUID: 933532a4fcc9baf4fa0491de14d08ed7
+    m_Address: Packages/com.unity.render-pipelines.universal/Shaders/Lit.shader
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 05a8dd24448777244b9428bdfce144a1
+    m_Address: Assets/Yonky-Black-demoFFP SDF.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 94372b37536c348c69ca263f84cda3f8
+    m_Address: Assets/Quantum Tek/Quantum UI/Fonts/Montserrat/Montserrat-Regular
+      SDF.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 12cdaa281514247daa35b98851e3d289
+    m_Address: Assets/Samples/AR-Foundation/Animation/MoveDeviceController.controller
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 8796ddf8d3aaa4aac90a8a30df8bbb29
+    m_Address: Assets/Samples/AR-Foundation/Animation/TapToPlaceController.controller
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 1cfdba0090d5d4c7d9701ae3ff1699ce
+    m_Address: Assets/Quantum Tek/Quantum UI/Sprites/Buttons/White Rounded Button.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: c16ed4c1f26104e49b6041b5b0345496
+    m_Address: Assets/Sprites/UI/icons8-settings-256.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 26ac82f14addaac49a2c69fdd374975d
+    m_Address: Assets/Sprites/UI/Shutter.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 28f7ed6579de76643a2ef16506e6ef5b
+    m_Address: Assets/Sprites/UI/ConfinedSpace/Pods/Tripod.jpg
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 8e535ff9afa64244cadc122e7f548202
+    m_Address: Assets/Sprites/sl_112520_38300_20 - Copy(2).png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 0186ee3a1fa73b740b0da848c1208d9e
+    m_Address: Assets/Sprites/UI/AR.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 5f0e767aefaa06447836b5a2ff139f23
+    m_Address: Assets/Sprites/UI/Back.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 361685eeac9f141b09b365c40e020b2a
+    m_Address: Assets/Quantum Tek/Quantum UI/Sprites/Buttons/White Round Outline
+      Button.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 7f988301d22a4406da0408106c75d212
+    m_Address: Assets/Samples/AR-Foundation/Prefabs/AR Point Cloud Visualizer.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 4279f8c20f7048c45b5ed5a5f3a547ff
+    m_Address: Assets/Prefabs/AR Session.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: a70d985394bc647b2bb8520527715efe
+    m_Address: Assets/Samples/AR-Foundation/Animation/FadedOffTapToPlaceAnimation.anim
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 0eac0704a90b249f98d14d37f4a1c541
+    m_Address: Assets/Samples/AR-Foundation/Animation/TapToPlaceAnimation.anim
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: acd21e74c9a51fc4390c2dd7f89c3d96
+    m_Address: Assets/Safety_Product_assets_FBX/Radhe/Worker/hand.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: bc1ede39bf3643ee8e493720e4259791
+    m_Address: Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile Masking.shader
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: f1a102ba123334cb0b3f763090591cde
+    m_Address: Assets/Samples/AR-Foundation/Animation/FadeOffMoveDeviceAnimation.anim
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 22a59f2cf94774262843342bf93a18db
+    m_Address: Assets/Samples/AR-Foundation/Animation/MoveDeviceAnimation.anim
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: e92519fdfb66ce340bf78df95da36a60
+    m_Address: Assets/Yonky-Black-demoFFP.ttf
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 595f9850155c9434682bd2502593b876
+    m_Address: Assets/Samples/AR-Foundation/Animation/MoveDevice/movedevice_18.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 179046d0782a741fa89f80f550e19113
+    m_Address: Assets/Samples/AR-Foundation/Animation/MoveDevice/movedevice_21.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: d07ba9e01e35f47b09a6e6197e98092d
+    m_Address: Assets/Samples/AR-Foundation/Animation/MoveDevice/movedevice_02.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 36e335017ad71d54fbb10842863188ae
+    m_Address: Packages/com.unity.render-pipelines.core/Runtime/FallbackShader.shader
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 7c02ec01e51dc40d3bb9a9dbdf991866
+    m_Address: Assets/Samples/AR-Foundation/Animation/TapToPlace/taptoplace_14.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: b74985310518c4d0b97275a16b1adb62
+    m_Address: Assets/Samples/AR-Foundation/Animation/TapToPlace/taptoplace_01.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: a6726b31a88d94631a7a179bfe5967db
+    m_Address: Assets/Samples/AR-Foundation/Animation/MoveDevice/movedevice_16.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: c287106115c4b48578c05096638f630f
+    m_Address: Assets/Samples/AR-Foundation/Animation/TapToPlace/taptoplace_17.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 37973471125914dc6aaf0f2891387008
+    m_Address: Assets/Samples/AR-Foundation/Animation/MoveDevice/movedevice_10.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 3be564229f6d64c3888ac4aa7c797f10
+    m_Address: Assets/Samples/AR-Foundation/Animation/TapToPlace/taptoplace_18.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: def6a752e74e042cda44459509ca1204
+    m_Address: Assets/Samples/AR-Foundation/Animation/MoveDevice/movedevice_19.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: e3265ab4bf004d28a9537516768c1c75
+    m_Address: Assets/TextMesh Pro/Fonts/LiberationSans.ttf
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 6f4c44c4b1c6a437eada93d3e465d8fc
+    m_Address: Assets/Samples/AR-Foundation/Animation/MoveDevice/movedevice_12.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: c9aac4450531a476483a77cec3359c46
+    m_Address: Assets/Samples/AR-Foundation/Animation/MoveDevice/movedevice_13.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 1a043475dba954843853b7824a385063
+    m_Address: Assets/Samples/AR-Foundation/Animation/TapToPlace/taptoplace_10.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: d310de85b3856456f9dbf45235c1c599
+    m_Address: Assets/Samples/AR-Foundation/Animation/TapToPlace/taptoplace_02.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: e04f5fa5b135a49ed89ca6cb9055a5f9
+    m_Address: Assets/Samples/AR-Foundation/Animation/MoveDevice/movedevice_32.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: e92e12b5fe1db423288ab49631c1296e
+    m_Address: Assets/Samples/AR-Foundation/Animation/TapToPlace/taptoplace_13.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 791ec2b5af8574c19a7e698986d4c584
+    m_Address: Assets/Samples/AR-Foundation/Animation/MoveDevice/movedevice_00.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 001f47d5cafcf4a349cf516a2c6b1324
+    m_Address: Assets/Samples/AR-Foundation/Animation/MoveDevice/movedevice_22.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 905724e5b89b7488393562a6c423d3ed
+    m_Address: Assets/Samples/AR-Foundation/Animation/MoveDevice/movedevice_31.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 29437c06cf8c24212b57767f692487d3
+    m_Address: Assets/Samples/AR-Foundation/Animation/TapToPlace/taptoplace_12.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 9f638866f800041bea010d28355bdeba
+    m_Address: Assets/Samples/AR-Foundation/Animation/MoveDevice/movedevice_26.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 76b475b6723f6458b87cf2784fcb9f78
+    m_Address: Assets/Samples/AR-Foundation/Animation/TapToPlace/taptoplace_07.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 57aa10d6914834e72b90d879a7baa7a8
+    m_Address: Assets/Samples/AR-Foundation/Animation/TapToPlace/taptoplace_00.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 12134f476de3045f0856983289d1338c
+    m_Address: Assets/Samples/AR-Foundation/Animation/MoveDevice/movedevice_08.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 5597795757a0e40e2a2842785abac34a
+    m_Address: Assets/Samples/AR-Foundation/Animation/TapToPlace/taptoplace_16.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 691d9f576f1c144e788b60629d09bab1
+    m_Address: Assets/Samples/AR-Foundation/Animation/MoveDevice/movedevice_20.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 8e216e675ebf047c49f36a4dfef4b22c
+    m_Address: Assets/Samples/AR-Foundation/Animation/MoveDevice/movedevice_05.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 6c2d4597f4f9a4f5d867832a844c2f44
+    m_Address: Assets/Samples/AR-Foundation/Animation/MoveDevice/movedevice_09.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 168d386877c114c4aa2f1a207c07a85b
+    m_Address: Assets/Samples/AR-Foundation/Animation/MoveDevice/movedevice_07.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: b449117804b4f47d8b9ac8fef3a22408
+    m_Address: Assets/Samples/AR-Foundation/Animation/MoveDevice/movedevice_24.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 46836aa8ab38f43daabd9da50c600f30
+    m_Address: Assets/Samples/AR-Foundation/Animation/MoveDevice/movedevice_37.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 5f72e5c8be8454de8896007b14a24b6f
+    m_Address: Assets/Samples/AR-Foundation/Animation/MoveDevice/movedevice_15.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 63a706891e2644fefb4677e3e49f458e
+    m_Address: Assets/Samples/AR-Foundation/Animation/TapToPlace/taptoplace_05.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: c7d7e3f90232e42878ae61a40e647e07
+    m_Address: Assets/Samples/AR-Foundation/Animation/TapToPlace/taptoplace_08.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: ee99420aba3f842cf886480d6046c6d0
+    m_Address: Assets/Samples/AR-Foundation/Animation/TapToPlace/taptoplace_15.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: f4c9051aa95a74140a4a0ec18a441bd1
+    m_Address: Assets/Samples/AR-Foundation/Animation/TapToPlace/taptoplace_09.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 264db62af390b4e75936886389e2431c
+    m_Address: Assets/Samples/AR-Foundation/Animation/MoveDevice/movedevice_03.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 6b2c818b63b5d4affa63bdd9f65033dc
+    m_Address: Assets/Samples/AR-Foundation/Animation/TapToPlace/taptoplace_04.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 3b73d0bbfa62d437d9d3bc2a4587d156
+    m_Address: Assets/Samples/AR-Foundation/Animation/MoveDevice/movedevice_29.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: c97a8e2c6e7a74c30b80e8350c183ac1
+    m_Address: Assets/Samples/AR-Foundation/Animation/MoveDevice/movedevice_34.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: fe41f93c8f5494cfc8b79bd07a57a296
+    m_Address: Assets/Samples/AR-Foundation/Animation/TapToPlace/taptoplace_11.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: be65f55c6257e49859050c91d90d804f
+    m_Address: Assets/Samples/AR-Foundation/Animation/TapToPlace/taptoplace_06.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: e6e9a19c3678ded42a3bc431ebef7dbd
+    m_Address: Packages/com.unity.render-pipelines.universal/Shaders/Utils/FallbackError.shader
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 1ea51ccce04ab4c61a991e63869c5287
+    m_Address: Assets/Samples/AR-Foundation/Animation/MoveDevice/movedevice_11.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: e00e8fec3cf414cc5bf94c4e6ea05de6
+    m_Address: Assets/Samples/AR-Foundation/Animation/MoveDevice/movedevice_25.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 85e3acfc020e8437e942093f813a8195
+    m_Address: Assets/Samples/AR-Foundation/Animation/MoveDevice/movedevice_27.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 23e2748d52724824fb92be95f957d7dc
+    m_Address: Assets/Samples/AR-Foundation/Materials/FeatheredPlaneMaterial.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 0a2935bd04f2548138a0ea0b7b0c500a
+    m_Address: Assets/Samples/AR-Foundation/Animation/TapToPlace/taptoplace_03.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 8f5482ed98d8f484b910cd9956d9aae4
+    m_Address: Assets/Samples/AR-Foundation/Animation/MoveDevice/movedevice_23.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 7118bd1e9e3b842af8860c185f085a1e
+    m_Address: Assets/Samples/AR-Foundation/Animation/MoveDevice/movedevice_28.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 977e415ec7c2448ac8b23be6c5cc70df
+    m_Address: Assets/Samples/AR-Foundation/Animation/MoveDevice/movedevice_04.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 0eb8a0cec82ab439bbe55783f6711ae0
+    m_Address: Assets/Samples/AR-Foundation/Materials/FeaturePointMaterial.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: bc52c50fa106c4e559c93bde8158ca73
+    m_Address: Assets/Samples/AR-Foundation/Animation/MoveDevice/movedevice_14.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: e6afe21f1d60149658ce3460309717ae
+    m_Address: Assets/Samples/AR-Foundation/Animation/MoveDevice/movedevice_33.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: e733274f880a546cca0049bb71e9b4c3
+    m_Address: Assets/Samples/AR-Foundation/Animation/MoveDevice/movedevice_36.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: f120295f10db048f2a49405f3cb36d39
+    m_Address: Assets/Samples/AR-Foundation/Animation/MoveDevice/movedevice_30.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: d294be5f4ebb347d4b4596789ffd49fb
+    m_Address: Assets/Samples/AR-Foundation/Animation/MoveDevice/movedevice_17.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 7d5f837f5971b40a99546c5de25d8d18
+    m_Address: Assets/Samples/AR-Foundation/Animation/MoveDevice/movedevice_35.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 6e853b8fddeb044fd88e5eacfdebd325
+    m_Address: Assets/Samples/AR-Foundation/Animation/MoveDevice/movedevice_06.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: a2723bffb20a04b20a6a05ecf6965403
+    m_Address: Assets/Samples/AR-Foundation/Animation/MoveDevice/movedevice_01.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: c8240f56f5bca4387a34716c42b57c76
+    m_Address: Assets/Samples/AR-Foundation/Textures/FeaturePoint.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: fe393ace9b354375a9cb14cdbbc28be4
+    m_Address: Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile.shader
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: cf0c720f1ba9b47e293f4b9bcfb2ecb4
+    m_Address: Assets/Samples/AR-Foundation/Textures/PlanePatternDot.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 38661a2f93c3bf34a8aeab0082c6ce64
+    m_Address: Assets/Samples/AR-Foundation/Shaders/FeatheredPlaneShader.shader
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: eb196a126b4d1b74aa5a3ff264bb3d6d
+    m_Address: Assets/Safety_Product_assets_FBX/Radhe/PN_Manga_02.FBX
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 01bb4d823fa2dba46bafb5fd20ed5f85
+    m_Address: Assets/ARAssets/SM_Industry-shell.FBX
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 4dc2d0358ad484e438cee270f6d05b43
+    m_Address: Assets/Meshes/Materials/asphalt_mat.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 6c9912a64ca538b4ca62981112034251
+    m_Address: Assets/Safety_Product_assets_FBX/Radhe/Materials/M-Gold.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 05fab6271e55947adba28ac2360697be
+    m_Address: Assets/Meshes/glb/PN 4000 (15).glb
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 0ffaa0b7117ba8c47a9d05ae701d4b4d
+    m_Address: Assets/Materials/Skybox_Mat.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: f42dbd8bf3844ab419769c3248eaec4a
+    m_Address: Assets/ARAssets/M_Shutter 2.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 602c639b732aa5645a9a245dbab3984d
+    m_Address: Assets/Safety_Product_assets_FBX/Parts/washer.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 953324bc5ad3dc24b87f53074f3e2d73
+    m_Address: Assets/Materials/Chrome.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: a63778adc46ec5f4ca18f296c0cf64e5
+    m_Address: Assets/ARAssets/M_Shutter 1.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 6edc52fd3a37c68488fe3e3b906057b1
+    m_Address: Assets/ARAssets/M_Shutter.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 170f7e0efae887047af939d0ccf105fd
+    m_Address: Assets/Materials/CameraPlane.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 6b671aefb35263a44b1d68eb076c8626
+    m_Address: Assets/Safety_Product_assets_FBX/Parts/nut.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: d7a3e6d27d93bbe4791cebc0c75f4a52
+    m_Address: Assets/Safety_Product_assets_FBX/Parts/Bolt.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: be8c06a7ced1522479d6bc772bb27112
+    m_Address: Assets/Safety_Product_assets_FBX/SM_Intermediate.FBX
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: d421f1d70b313024c8a18c5c6ed77182
+    m_Address: Assets/Safety_Product_assets_FBX/Parts/Ring.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: a0f646fcd7dfd6649b02e9585f4dbc0b
+    m_Address: Assets/Safety_Product_assets_FBX/Parts/Ring-Open.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 8988533d4730505438e8b6d3bcdd09b7
+    m_Address: Assets/Safety_Product_assets_FBX/Shock_Absorber.FBX
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: bc5adfc23d4577e4783b079589419d75
+    m_Address: Assets/Sprites/UI/Gallery.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 2926f8bb82fb11a449c25255052fbe40
+    m_Address: Assets/Sprites/UI/Save.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 88f5b43ddb550c7498c865bd525029ec
+    m_Address: Assets/Sprites/unnamed.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 617b10198100d44078c5e70d97423117
+    m_Address: Assets/Samples/AR-Foundation/Prefabs/AR Feathered Plane Fade.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: c021d051fa0cba84282b4a2577aa85c5
+    m_Address: Assets/ExampleAssets/Textures/Plastic/PlasticRidges_Normal.tif
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: eb06b9f24eb8cb543a39e35732d8436d
+    m_Address: Assets/Meshes/Materials/asphault_a.tga
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 51953d56e5bf84140837fb0926249de9
+    m_Address: Assets/Meshes/Materials/asphault_n.tga
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: a08f3a1c845d57c4293a42c3202574a1
+    m_Address: Packages/com.siccity.gltfutility/Materials/URP/Standard (Metallic).shadergraph
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 04d502bd1f85138418e697636494460b
+    m_Address: Assets/Meshes/Materials/asphault_m.tga
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 3f2672ab90096497b9d94da7ea0c6683
+    m_Address: Assets/Samples/AR-Foundation/Animation/AR Feathered Plane Fade.controller
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: f5e146e0a88114d58b942eb7e2579a35
+    m_Address: Assets/Samples/AR-Foundation/Animation/PlaneFadeOn.anim
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 8cd83a059647c4eaabf9cc2ca368e13e
+    m_Address: Assets/Samples/AR-Foundation/Animation/PlaneFadeOff.anim
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 88801070f61787f4299e5a7934f1a548
+    m_Address: Assets/Materials/White.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: c3f6f0359aaafea48bc2deb821332b86
+    m_Address: Assets/Safety_Product_assets_FBX/SM_SA57.FBX
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: e48f68483cf1c4dffa772b59ffd627fb
+    m_Address: Assets/Meshes/SA25/SA25.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: da63938e50de8ed4b90000a63326eb15
+    m_Address: Assets/Safety_Product_assets_FBX/Overhead/L_Piller.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: b871b5729a748254680ed0c7aae2d56f
+    m_Address: Assets/Safety_Product_assets_FBX/Radhe/Materials/CHE01-BLBL-20.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 5841196a3cf40471491281af9543649e
+    m_Address: Assets/Meshes/glb/PN 4000 (03).glb
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: e9e5cf0f47a3ecc47ab19c1bcb9cde78
+    m_Address: Assets/Safety_Product_assets_FBX/Radhe/Materials/MAG01-BLNG-44.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 68d17d333aa9ab445acaa846f0f7a1da
+    m_Address: Assets/Safety_Product_assets_FBX/Radhe/SM_PB001_Metal.FBX
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 6787c0ed974e1b64582853bcf84527ae
+    m_Address: Assets/Safety_Product_assets_FBX/Radhe/SM_DR002.FBX
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 4a670eb7ac9ea894aad8cd82124ea62f
+    m_Address: Assets/Safety_Product_assets_FBX/Radhe/MAG01-BLNG-44.jpg
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: fb17aafc195d53d4fafbef6320bd33ad
+    m_Address: Assets/Safety_Product_assets_FBX/Radhe/Materials/CHE01-BLBL-20.jpg
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: a9aac473935864f6b8ea5d4e3476d876
+    m_Address: Assets/Meshes/glb/sa38a.glb
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: fd3888349a0934e718d08d0d8f57a5b4
+    m_Address: Assets/Meshes/SA45/PN_45_saperated.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 730604b5323b59641a7b9e3159d001f6
+    m_Address: Assets/Safety_Product_assets_FBX/SM_SA07H.FBX
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 37d1b46424644af4ca8fe7f011e29798
+    m_Address: Assets/Safety_Product_assets_FBX/winch_801.jpg
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: c2ec2c90f6ba1403d9d488f8157b48ce, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 6e765c2bf73fc464dbf9f10ed054b0f2, type: 2}
+    - {fileID: 11400000, guid: eef239ba3698c4fc39ecdcbeceac460c, type: 2}

@@ -3,12 +3,28 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
+using System;
 
 namespace AR2
 {
+    [Serializable]
+    public class AssetReferenceTMP_FontAsset : AssetReferenceT<TMP_FontAsset>
+    {
+        public AssetReferenceTMP_FontAsset(string guid) : base(guid)
+        {
+        }
+    }
     public class UIElement : MonoBehaviour
     {
-        public TMP_Text Txt;
+
+
+        public AssetReferenceTMP_FontAsset materialReference;
+
+
+        public TMP_Text nameTxt;
+        public TMP_Text downloading;
         public Image image;
         public int buttonIndex;
         public ConfinedItemType buttonType;
@@ -17,6 +33,22 @@ namespace AR2
         Button button = null;
 
         private ConfinedUI uiManager;
+        ConfinedSpaceManager cSM;
+
+        AsyncOperationHandle<TMP_FontAsset> handleOp;
+
+        private void OnEnable()
+        {
+            cSM = FindObjectOfType<ConfinedSpaceManager>();
+            handleOp = materialReference.LoadAssetAsync<TMP_FontAsset>();
+            handleOp.Completed += (op) =>
+            {
+                nameTxt.font = op.Result;
+                downloading.font = op.Result;
+
+            };
+            //Txt.font.atlas.text = textureReference.LoadAssetAsync<Texture>().Result;
+        }
 
         void Start()
         {
@@ -24,10 +56,68 @@ namespace AR2
             uiManager = transform.root.GetComponent<ConfinedUI>();
         }
 
+        private void OnDisable()
+        {
 
+            Addressables.Release(handleOp);
+        }
+        private void Update()
+        {
+            switch (buttonType)
+            {
+                case ConfinedItemType.Pod:
+                    var a = nameTxt.text;
+                    //bool result;
+                    if (cSM.namePodStatausDic[a] && !button.interactable)
+                    {
+                        downloading.gameObject.SetActive(false);
+                        button.interactable = true;
+                        var tempCol = image.color;
+                        tempCol.a = 1f;
+                        image.color = tempCol;
+                    } 
+                    break;
+                case ConfinedItemType.Brackets:
+                    if (cSM.BracketsIsReady && !button.interactable)
+                    {
+                        downloading.gameObject.SetActive(false);
+                        button.interactable = true;
+                        var tempCol = image.color;
+                        tempCol.a = 1f;
+                        image.color = tempCol;
+                    }
+                    break;
+                case ConfinedItemType.Winch:
+                    var b = nameTxt.text;
+                    if (cSM.nameWinchStatausDic[b] && !button.interactable)
+                    {
+                        downloading.gameObject.SetActive(false);
+                        button.interactable = true;
+                        var tempCol = image.color;
+                        tempCol.a = 1f;
+                        image.color = tempCol;
+                    }
+                    break;
+                case ConfinedItemType.Retractable:
+                    if (cSM.RetractablesIsReady && !button.interactable)
+                    {
+                        downloading.gameObject.SetActive(false);
+                        button.interactable = true;
+                        var tempCol = image.color;
+                        tempCol.a = 1f;
+                        image.color = tempCol;
+                    }
+                    break;
+                
+            }
+            if (cSM.podAssetRef[buttonIndex].IsValid())
+            {
+
+            }
+        }
         void OnPressedCell()
         {
-            uiManager.OnItemSelected(buttonType, buttonIndex);
+            uiManager.OnItemSelected(buttonType, buttonIndex, nameTxt.text);
 
             //switch (buttonType)
             //{
@@ -90,7 +180,7 @@ namespace AR2
         public void SetElementValues(ElementCellData data)
         {
             image.sprite = data.icon;
-            Txt.text = data.Message;
+            nameTxt.text = data.Message;
             buttonIndex = data.buttonIndex;
             buttonType = data.buttonType;
         }

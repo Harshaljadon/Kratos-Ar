@@ -7,9 +7,15 @@ onBoardingDoNotAskAgain = true
 showPackageIndexes = false
 showStatusBar = false
 scopes = {
-	"last_search.2138236A" = ""
+	"last_search.2138236A" = "scene"
 	"OpenInspectorPreview.2138236A" = "0"
 	"currentGroup.2138236A" = "asset"
+	"last_search.DD5CDD96" = ""
+	"OpenInspectorPreview.DD5CDD96" = "1"
+	"currentGroup.DD5CDD96" = "scene"
+	"last_search.C4949528" = "GizmoIconAtlas_pix32 t:Texture2D"
+	"OpenInspectorPreview.C4949528" = "0"
+	"currentGroup.C4949528" = "asset"
 }
 providers = {
 	adb = {
@@ -60,7 +66,7 @@ recentSearches = [
 searchItemFavorites = [
 ]
 savedSearchesSortOrder = 0
-showSavedSearchPanel = false
+showSavedSearchPanel = true
 expandedQueries = [
 ]
 queryBuilder = false

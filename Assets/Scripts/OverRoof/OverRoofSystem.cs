@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace AR2
 {    
@@ -21,12 +23,13 @@ namespace AR2
         public int segment2Length { get; private set; } = 0;
         public int segment3Length { get; private set; } = 0;
 
-        public List<GameObject> intermidiatePrefabs = new List<GameObject>(5);
-
+        public List<GameObject> intermidiatePrefabs = new List<GameObject>();
+        [SerializeField]
+        List<AssetReference> intermidiatePrefabsAssetRef = new List<AssetReference>(5);
 
         int segment1Limit = 0;
         int segment2Limit = 0;
-
+        int intermidiatePrefabsLength = 0;
         public float MinIntermidateGap { get; private set; } = 0.05f;
         public int[] intermidateCounts = { 0, 0, 0 };
 
@@ -59,6 +62,26 @@ namespace AR2
             DisableLifeLineItems();
             SetupAnchorPositions();
             SetSegmentLimits();
+            foreach (var item in intermidiatePrefabsAssetRef)
+            {
+                item.LoadAssetAsync<GameObject>().Completed += (op) =>
+                {
+                    if (((AsyncOperationHandle<GameObject>)op).Status == AsyncOperationStatus.Succeeded)
+                    {
+                        intermidiatePrefabs.Add(((AsyncOperationHandle<GameObject>)op).Result);
+                        //Addressables.Release(op);
+                    }
+                };
+            }
+            intermidiatePrefabsLength = intermidiatePrefabs.Count;
+        }
+
+        private void OnDisable()
+        {
+            foreach (var item in intermidiatePrefabsAssetRef)
+            {
+                item.ReleaseAsset();
+            }
         }
 
         private void Update()
@@ -216,7 +239,11 @@ namespace AR2
 
             foreach (var segmentLine in segmentLines)
             {
+                if (intermidiatePrefabsLength > pointAnchors[0].currentVariation)
+                {
+
                 segmentLine.UpdateIntermidiatePrefab(intermidiatePrefabs[pointAnchors[0].currentVariation]);
+                }
             }
         }
 

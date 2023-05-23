@@ -90,15 +90,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7901592579207859269}
     m_Modifications:
+    - target: {fileID: -8979090816429985468, guid: fc8d7caa5b9384acc891d34e0854ccf5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: -8215179218238235052, guid: fc8d7caa5b9384acc891d34e0854ccf5,
         type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7565529118993891437, guid: fc8d7caa5b9384acc891d34e0854ccf5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: -5306105943500480550, guid: fc8d7caa5b9384acc891d34e0854ccf5,
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4663104427754579811, guid: fc8d7caa5b9384acc891d34e0854ccf5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -3628421768124439899, guid: fc8d7caa5b9384acc891d34e0854ccf5,
         type: 3}

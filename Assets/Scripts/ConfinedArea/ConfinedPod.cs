@@ -2,10 +2,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
+using UnityEngine.ResourceManagement.ResourceLocations;
 
 
 namespace AR2
 {
+
+    /*public class ComponentRefeenceConfinedPod : ComponentReference<ConfinedPod>
+    {
+        public ComponentRefeenceConfinedPod (string guid) : base (guid)
+        {
+
+        }
+    }*/
 
     public class ConfinedPod : MonoBehaviour
     {
@@ -16,7 +27,8 @@ namespace AR2
         public List<Transform> winches = new List<Transform>();
         public List<Transform> retractables = new List<Transform>();
 
-        private List<ConfinedPodItem> rotatableWinches = new List<ConfinedPodItem>();
+        private List<ConfinedPodItem> winchesConfinedPodItem = new List<ConfinedPodItem>();
+        private List<ConfinedPodItem> retractableConfinedPodItem = new List<ConfinedPodItem>();
 
         public GameObject radhePrefab;
         public ConfinedRope winchRope;
@@ -58,30 +70,83 @@ namespace AR2
             }
         }
 
+         List<GameObject> All_brackets = new List<GameObject>();
+        bool previouslyDoneBracket;
+        AsyncOperationHandle<GameObject> handleBracketGameObject, handleWinchGameObject, handleSRLGameObject;
+        List<AsyncOperationHandle<GameObject>> winchHandler, sRLhandler, bracketHandle;
+        private void Start()
+        {
+            //bracketHandle = new List<AsyncOperationHandle<GameObject>>();
+            winchHandler = new List<AsyncOperationHandle<GameObject>>();
+            sRLhandler = new List<AsyncOperationHandle<GameObject>>();
+            bracketHandle = new List<AsyncOperationHandle<GameObject>>();
+        }
 
-        internal void SetItems(ConfinedItemType item,params GameObject[] ObjPrefab)
+        private void OnDestroy()
+        {
+            if (handleBracketGameObject.IsValid())
+            {
+
+            Addressables.Release(handleBracketGameObject);
+            }
+
+            if (handleWinchGameObject.IsValid())
+            {
+            Addressables.Release(handleWinchGameObject);
+            }
+            if (handleSRLGameObject.IsValid())
+            {
+                Addressables.Release(handleSRLGameObject);
+            }
+
+            foreach (var item in bracketHandle)
+            {
+                if (item.IsValid())
+                {
+                    Addressables.Release(item);
+                }
+            }
+            bracketHandle.Clear();
+            foreach (var item in winchHandler)
+            {
+                if (item.IsValid())
+                {
+                    Addressables.Release(item);
+                }
+            }
+            winchHandler.Clear();
+            foreach (var item in sRLhandler)
+            {
+                if (item.IsValid())
+                {
+                    Addressables.Release(item);
+                }
+            }
+            sRLhandler.Clear();
+           
+
+        }
+        internal void SetItems(ConfinedItemType item,string nameLocRes,Dictionary<string,IResourceLocation> a , AssetReference ObjPrefab)
         {
             switch (item)
             {
                 case ConfinedItemType.Brackets:
                     {
-                        foreach (var bracket in brackets)
+                        for (int i = 0; i < bracketHandle.Count; i++)
                         {
-                            // remove previous
-                            if (bracket.childCount > 0)
+                            if (bracketHandle[i].IsValid())
                             {
-                                for (int i = 0; i < bracket.childCount; i++)
-                                {
-                                    Destroy(bracket.GetChild(i).gameObject);
-                                }
+                            Addressables.Release(bracketHandle[i]);
                             }
-                            // add new 
-                            for (int i = 0; i < ObjPrefab.Length; i++)
+                        }
+                        foreach (var bracket1 in brackets)
+                        {
+                            handleBracketGameObject = Addressables.LoadAssetAsync<GameObject>(a[nameLocRes]);
+                            handleBracketGameObject.Completed += op =>
                             {
-                            Instantiate(ObjPrefab[i], bracket);
-
-                            }
-
+                                Instantiate(op.Result, bracket1);
+                                bracketHandle.Add(op);
+                            };
                         }
                     }
                     break;
@@ -89,20 +154,28 @@ namespace AR2
                     {
                         foreach (var winch in winches)
                         {
-                            // remove previous
                             if (winch.childCount > 0)
                             {
-                                for (int i = 0; i < winch.childCount; i++)
+                                foreach (var ro in winchesConfinedPodItem)
                                 {
-                                    Destroy(winch.GetChild(i).gameObject);
+                                    Destroy(ro.gameObject);
                                 }
-                                rotatableWinches.Clear();
+                                Addressables.Release(handleWinchGameObject);
+                                winchesConfinedPodItem.Clear();
                             }
 
-                            // add new 
-                            GameObject gameObject = Instantiate(ObjPrefab[0], winch);
-                            gameObject.GetComponent<ConfinedPodItem>().itemType = item;
-                            rotatableWinches.Add(gameObject.GetComponent<ConfinedPodItem>());
+                            handleWinchGameObject = Addressables.LoadAssetAsync<GameObject>(a[nameLocRes]);
+                            handleWinchGameObject.Completed += op =>
+                            {
+                                var a = op.Result;
+                                GameObject go = Instantiate(a, winch);
+                                winchesConfinedPodItem.Add(go.GetComponent<ConfinedPodItem>());
+                                go.GetComponent<ConfinedPodItem>().itemType = item;
+                                winchHandler.Add(op);
+                            };
+    
+         
+
                         }
                         winchRope.UpdateLifeline();
 
@@ -110,15 +183,10 @@ namespace AR2
                         {
                             if (retractable.childCount > 0)
                             {
-                                //podAnimation.canAnimate = true;
                                 AnimateEverything();
                             }
                         }
 
-                        //if(podAnimation.canAnimate)
-                        //{
-                        //AnimateEverything();
-                        //}
                     }
                     break;
                 case ConfinedItemType.Retractable:
@@ -128,15 +196,26 @@ namespace AR2
                             // remove previous
                             if (retractable.childCount > 0)
                             {
-                                for (int i = 0; i < retractable.childCount; i++)
+                                foreach (var rCPI in retractableConfinedPodItem)
                                 {
-                                    Destroy(retractable.GetChild(i).gameObject);
+                                    Destroy(rCPI.gameObject);
+
                                 }
+                                retractableConfinedPodItem.Clear();
                             }
 
-                            // add new 
-                            GameObject gameObject = Instantiate(ObjPrefab[0], retractable);
-                            gameObject.GetComponent<ConfinedPodItem>().itemType = item;
+                            // add new
+                            handleSRLGameObject = Addressables.LoadAssetAsync<GameObject>(a[nameLocRes]);
+                            handleSRLGameObject.Completed += op =>
+                            {
+                                var a = op.Result;
+                                GameObject go = Instantiate(a, retractable);
+                                retractableConfinedPodItem.Add(go.GetComponent<ConfinedPodItem>());
+                                go.GetComponent<ConfinedPodItem>().itemType = item;
+                                sRLhandler.Add(op);
+                            };
+    
+
                         }
 
                         foreach (var winch in winches)
@@ -154,10 +233,11 @@ namespace AR2
             }
         }
 
+
         private void AnimateEverything()
         {
             // animate Everything
-            foreach (var winch in rotatableWinches)
+            foreach (var winch in winchesConfinedPodItem)
             {
                 winch.canAnimate = true;
             }

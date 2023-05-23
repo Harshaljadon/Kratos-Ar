@@ -5,6 +5,9 @@ using UnityEngine.UI;
 using TMPro;
 using System.Linq;
 using DG.Tweening;
+using UnityEngine.SceneManagement;
+using UnityEngine.AddressableAssets;
+
 
 namespace AR2
 {
@@ -75,28 +78,28 @@ namespace AR2
 
         public void OnSelectPod()
         {
-            OnStateSelected(confinedSpaceManager.pods, ConfinedItemType.Pod);
+            OnStateSelected(confinedSpaceManager.podAssetRef, ConfinedItemType.Pod);
         }
 
         public void OnAddBrackets()
         {
-            OnStateSelected(confinedSpaceManager.brackets, ConfinedItemType.Brackets);
+            OnStateSelected(confinedSpaceManager.bracketsAssetRef, ConfinedItemType.Brackets);
         }
 
         public void OnAddWinch()
         {
-            OnStateSelected(confinedSpaceManager.winches, ConfinedItemType.Winch);
+            OnStateSelected(confinedSpaceManager.winchesAssetRef, ConfinedItemType.Winch);
         }
 
         public void OnAddRetractable()
         {
-            OnStateSelected(confinedSpaceManager.retractables, ConfinedItemType.Retractable);
+            OnStateSelected(confinedSpaceManager.retractablesAssetRef, ConfinedItemType.Retractable);
         }
 
         public void OnARdemo()
         {
             isArON = !isArON;
-            
+            // In AR demo mode movement of camera get stop instead movement of ar object implement by touch
             cameraControls.arMode = isArON;
             FindObjectOfType<TouchControls>().isArMode = isArON;
             
@@ -346,9 +349,9 @@ namespace AR2
         }
 
 
-        internal void OnItemSelected(ConfinedItemType buttonType, int buttonIndex)
+        internal void OnItemSelected(ConfinedItemType buttonType, int buttonIndex, string name)
         {
-            confinedSpaceManager.SelectItem(buttonType, buttonIndex);
+            confinedSpaceManager.SelectItem(buttonType, buttonIndex, name);
 
             // based on item selected change UI for next
             switch (buttonType)
@@ -389,7 +392,8 @@ namespace AR2
 
         public void BackToMenu()
         {
-            UnityEngine.SceneManagement.SceneManager.LoadScene(1);
+            //UnityEngine.SceneManagement.SceneManager.LoadScene(1);
+            Addressables.LoadSceneAsync("Choose", LoadSceneMode.Single);
         }
 
         public override void ShowUI()

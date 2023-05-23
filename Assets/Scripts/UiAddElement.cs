@@ -2,31 +2,52 @@
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
-
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 namespace AR2
 {
     public class UiAddElement : MonoBehaviour
     {
-        public RectTransform panelItem;
+        public AssetReference panelItemAddressableAsset;
+        RectTransform panelItem;
         public RectTransform contentPanel;
+        public GameObject loadingStatus;
+
 
         public void UpdateData(List<ElementCellData> data)
         {
-            for (int i = 0; i < data.Count; i++)
+            loadingStatus.SetActive(true);
+
+            panelItemAddressableAsset.LoadAssetAsync<GameObject>().Completed += (op) =>
             {
-                RectTransform uiItem = Instantiate(panelItem, contentPanel);
-                UIElement element = uiItem.GetComponent<UIElement>();
-                element.SetElementValues(data[i]);
-            }
+
+                if (op.Status == AsyncOperationStatus.Succeeded)
+                {
+                    loadingStatus.SetActive(false);
+
+                    panelItem = op.Result.GetComponent<RectTransform>();
+                    var count = data.Count;
+                    for (int i = 0; i < count; i++)
+                    {
+                        RectTransform uiItem = Instantiate(panelItem, contentPanel);
+                        UIElement element = uiItem.GetComponent<UIElement>();
+                        element.SetElementValues(data[i]);
+                    }
 
 
-            // update Scrollbar
-            RectTransform rt = contentPanel.GetComponent<RectTransform>();
-            int childsInVerticle = contentPanel.childCount / 3;
+                    // update Scrollbar
+                    RectTransform rt = contentPanel.GetComponent<RectTransform>();
+                    int childsInVerticle = contentPanel.childCount / 3;
 
-            rt.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, ((panelItem.rect.height + 10f) * (childsInVerticle + 1f)));// gap and spacing added
-            rt.DOAnchorPosY(-(rt.rect.height / 2f), 0, false);//= new Vector2(rt.anchoredPosition3D.x, (-rt.anchoredPosition3D.y / 2f) ) ;
+                    rt.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, ((panelItem.rect.height + 10f) * (childsInVerticle + 1f)));// gap and spacing added
+                    rt.DOAnchorPosY(-(rt.rect.height / 2f), 0, false);//= new Vector2(rt.anchoredPosition3D.x, (-rt.anchoredPosition3D.y / 2f) ) ;
 
+                    Addressables.Release(op);
+                }
+                
+            };
+
+            
         }
         private void AddNewItem()
         {

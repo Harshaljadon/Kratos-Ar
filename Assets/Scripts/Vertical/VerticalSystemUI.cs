@@ -2,6 +2,8 @@
 using UnityEngine;
 using TMPro;
 using DG.Tweening;
+using UnityEngine.SceneManagement;
+using UnityEngine.AddressableAssets;
 
 namespace AR2
 {
@@ -151,10 +153,12 @@ namespace AR2
             }
 
             // level choose scene
-            UnityEngine.SceneManagement.SceneManager.LoadScene(1);
+            //UnityEngine.SceneManagement.SceneManager.LoadScene(1);
+            Addressables.LoadSceneAsync("Choose", LoadSceneMode.Single);
+
         }
 
-        
+
 
         public void OnArPressed()
         {

@@ -1,12 +1,14 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations; 
 
+
+using TMPro;
+using System.Collections;
 
 namespace AR2
 {
@@ -19,31 +21,43 @@ namespace AR2
         public RectTransform confinedSpaceButton;
         public RectTransform verticalButton;
         public RectTransform harnessButton;
-
+        [SerializeField]
+        TextMeshProUGUI loadingRef;
+        [SerializeField] TextMeshProUGUI needInternet;
         public Material armMat;
         
         private string sceneName;
         float m_time = 0.3f;
-        
+        [SerializeField] private int index;
+        [SerializeField]
+        float width;
         public void TapOnStart()
         {
             sceneName = "Choose";
-            LoadScene();
+            //LoadScene();
+            SceneManager.LoadScene(1);
         }
+
 
         private void Start()
         {
-            if (armMat)
-            {
-                armMat.mainTexture = null;
-            }
-           
-            canvasGroup.alpha = 0;
+            needInternet.gameObject.SetActive(false);
 
-            canvasGroup.DOFade(1, 0.5f);
-            
-            if(SceneManager.GetActiveScene().name == "Choose")
+            if (SceneManager.GetActiveScene().name == "Choose")
             {
+                if (loadingRef != null)
+                {
+                    loadingRef.gameObject.SetActive(false);
+                }
+                //Addressables.InitializeAsync();
+                if (armMat)
+                {
+                    armMat.mainTexture = null;
+                }
+
+                canvasGroup.alpha = 0;
+
+                canvasGroup.DOFade(1, 0.5f);
                 overHeadButton.transform.localScale = Vector3.zero;
                 overRoofButton.transform.localScale = Vector3.zero;
                 confinedSpaceButton.transform.localScale = Vector3.zero;
@@ -62,7 +76,8 @@ namespace AR2
         public void OnOverHead()
         {
             AnimateAndLoad(overHeadButton);
-            sceneName = "Over-Head";
+            sceneName = "OVERHEAD";
+            //index = ((int)Module.Overhead);
             // Invoke(nameof(LoadScene), m_time * 2);
         }
 
@@ -71,7 +86,8 @@ namespace AR2
             //SceneManager.LoadScene("over-the-roof");
             
             AnimateAndLoad(overRoofButton);
-            sceneName = "over-the-roof";
+            sceneName = "OVERTHEROOF";
+            //index = (int)Module.Overtheroof;
             // Invoke(nameof(LoadScene), m_time * 2);
             
         }
@@ -79,15 +95,19 @@ namespace AR2
         public void OnConfinedSpace()
         {
             AnimateAndLoad(confinedSpaceButton);
-            sceneName = "ConfinedSpace";
+            sceneName = "CONFINEDSPACE";
+            //index = (int)Module.Confinesspace;
+
             // Invoke(nameof(LoadScene), m_time * 2);
-            
+
         }
 
         public void OnVertical()
         {
             AnimateAndLoad(verticalButton);
-            sceneName = "Vertical";
+            sceneName = "VERTICAL";
+            //index = (int)Module.Cvertical;
+
             // Invoke(nameof(LoadScene), m_time * 2);
         }
         public void OnHarness()
@@ -104,15 +124,93 @@ namespace AR2
                 SceneManager.LoadScene(0);
             }
         }
-
+        AsyncOperationHandle handler;
 
         private void LoadScene()
         {
-            SceneManager.LoadSceneAsync(sceneName).completed += delegate(AsyncOperation operation) { };
+            //SceneManager.LoadSceneAsync(sceneName).completed += delegate(AsyncOperation operation) { };
+            //Addressables.LoadSceneAsync(sceneName, LoadSceneMode.Additive, true).Completed += UIManager_Completed;
+            StartCoroutine(nameof(CheckDownloadProgress));
+            //CheckDownloadSize();
         }
-        
-        
-        
+
+        IEnumerator CheckDownloadProgress()
+        {
+            var checkinternectConnection = GetInternetConnectResponse.Instance.ConnectedInternet;
+            handler = Addressables.DownloadDependenciesAsync(sceneName, false);
+            // Check the download size
+
+            //internet but not downloaded
+            if (checkinternectConnection)
+            {
+            float progress = 0;
+                while (handler.Status == AsyncOperationStatus.None)
+                {
+                    float percentageComplete = handler.GetDownloadStatus().Percent;
+                    loadingRef.gameObject.SetActive(true);
+                    if (percentageComplete > progress * 1.1f) // Report at most every 10% or so
+                    {
+                        progress = percentageComplete; // More accurate %
+                        float p = percentageComplete * 100;
+                        string val = MathF.Round(p, 2).ToString();
+                        loadingRef.gameObject.SetActive(true);
+                        loadingRef.SetText("Loading: "+ $"<mspace={width}em>{val}");
+                    }
+                    yield return null;
+                 }
+
+            }
+            // no internet but downloaded
+
+            else if (!checkinternectConnection )
+            {
+                needInternet.gameObject.SetActive(false);
+                Addressables.Release(handler);
+                Addressables.LoadSceneAsync(sceneName, LoadSceneMode.Single, true);
+                yield return null;
+            }
+            // no internet but not downloaded
+
+            else if (!checkinternectConnection )
+            {
+                //AsyncOperationHandle<long> getDownloadSize = Addressables.GetDownloadSizeAsync(sceneName);
+                //yield return getDownloadSize;
+                needInternet.gameObject.SetActive(true);
+                yield return new  WaitForSeconds(3);
+                //Addressables.Release(getDownloadSize);
+                Addressables.Release(handler);
+                SceneManager.LoadScene(1);
+            }
+            if (handler.Status == AsyncOperationStatus.Succeeded)
+            {
+                handler.Completed += UIManager_Completed;
+            }
+
+        }
+
+        private void UIManager_Completed(AsyncOperationHandle obj)
+        {
+                Addressables.Release(handler);
+            //AppSettings.LoadScene(index, LoadSceneMode.Single);
+            Addressables.LoadSceneAsync(sceneName, LoadSceneMode.Single, true);
+
+            
+        }
+
+
+        //SceneInstance m_LoadedScene;
+
+        /*private void UIManager_Completed(AsyncOperationHandle<UnityEngine.ResourceManagement.ResourceProviders.SceneInstance> obj)
+        {
+
+            if (obj.Status == AsyncOperationStatus.Succeeded)
+            {
+                Addressables.UnloadSceneAsync(m_LoadedScene);
+            }
+        }*/
+
+
+
         // Use this for initialization
         void AnimateAndLoad(RectTransform itemToAnimate)
         {

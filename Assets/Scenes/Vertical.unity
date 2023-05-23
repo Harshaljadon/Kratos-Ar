@@ -2842,7 +2842,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 420ccf6bc80c44a1fae6e8ce78f2e6b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  wire: []
   ObjectToPlace: {fileID: 1308148201184130835}
+  onOffHolder: {fileID: 1308148201184130835}
   touchControls: {fileID: 712731204}
   isInInteractableZone: 0
   b_ArMode: 0
@@ -5781,6 +5783,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_SendPointerHoverToParent: 1
   m_HorizontalAxis: Horizontal
   m_VerticalAxis: Vertical
   m_SubmitButton: Submit
@@ -6943,7 +6946,7 @@ RectTransform:
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &1405370717
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -6960,7 +6963,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!114 &1405370718
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8350,7 +8353,7 @@ RectTransform:
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &1800599825
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -8367,7 +8370,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!114 &1800599826
 MonoBehaviour:
   m_ObjectHideFlags: 0

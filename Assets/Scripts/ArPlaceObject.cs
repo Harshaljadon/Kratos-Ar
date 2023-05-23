@@ -7,7 +7,8 @@ using UnityEngine.XR.ARSubsystems;
 [RequireComponent(typeof(ARRaycastManager))]
 public class ArPlaceObject : MonoBehaviour
 {
-    public GameObject ObjectToPlace;
+    public List<LineRenderer> wire;
+    public GameObject ObjectToPlace,onOffHolder;
     private ARPlaneManager planeManager;
     private ARPointCloudManager pointCloudManager;
 
@@ -35,14 +36,32 @@ public class ArPlaceObject : MonoBehaviour
     {
         if (!objectPlaced)
         {
-            ObjectToPlace.SetActive(false);
+            onOffHolder.SetActive(false);
+            if (wire.Count != 0)
+            {
+                foreach (var item in wire)
+                {
+                    item.enabled = false;
+                }
+
+            }
+            //ObjectToPlace.SetActive(false);
         }
     }
     
     
     public void OnArDeActivate()
     {
-        ObjectToPlace.SetActive(true);
+        onOffHolder.SetActive(true);
+        if (wire.Count != 0)
+        {
+            foreach (var item in wire)
+            {
+                item.enabled = true;
+            }
+
+        }
+        //ObjectToPlace.SetActive(true);
     }
     
     
@@ -105,9 +124,18 @@ public class ArPlaceObject : MonoBehaviour
             }
             
 
-            if (ObjectToPlace != null && isInInteractableZone)
+            if (onOffHolder != null && isInInteractableZone)
             {
-                ObjectToPlace.SetActive(true);
+                onOffHolder.SetActive(true);
+                if (wire.Count != 0)
+                {
+                    foreach (var item in wire)
+                    {
+                        item.enabled = true;
+                    }
+
+                }
+                //ObjectToPlace.SetActive(true);
                 ObjectToPlace.transform.position = hitPose.position;
                 
                 // SetAllPlanesActive(false);
