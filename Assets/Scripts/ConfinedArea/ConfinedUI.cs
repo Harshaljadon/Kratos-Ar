@@ -5,8 +5,8 @@ using UnityEngine.UI;
 using TMPro;
 using System.Linq;
 using DG.Tweening;
-using UnityEngine.SceneManagement;
-using UnityEngine.AddressableAssets;
+//using UnityEngine.SceneManagement;
+//using UnityEngine.AddressableAssets;
 
 
 namespace AR2
@@ -30,7 +30,7 @@ namespace AR2
 
 
         public RectTransform uiRootPanel;
-        public GameObject menuPanel;
+        public GameObject menuPanel, backButton,arButton;
         public GameObject itemsPanel;
         public TMP_Text panelHeadingText;
 
@@ -78,22 +78,22 @@ namespace AR2
 
         public void OnSelectPod()
         {
-            OnStateSelected(confinedSpaceManager.podAssetRef, ConfinedItemType.Pod);
+            OnStateSelected(confinedSpaceManager.podGameObj, ConfinedItemType.Pod);
         }
 
         public void OnAddBrackets()
         {
-            OnStateSelected(confinedSpaceManager.bracketsAssetRef, ConfinedItemType.Brackets);
+            OnStateSelected(confinedSpaceManager.bracketsGameObj, ConfinedItemType.Brackets);
         }
 
         public void OnAddWinch()
         {
-            OnStateSelected(confinedSpaceManager.winchesAssetRef, ConfinedItemType.Winch);
+            OnStateSelected(confinedSpaceManager.winchesGameObj, ConfinedItemType.Winch);
         }
 
         public void OnAddRetractable()
         {
-            OnStateSelected(confinedSpaceManager.retractablesAssetRef, ConfinedItemType.Retractable);
+            OnStateSelected(confinedSpaceManager.retractablesGameObj, ConfinedItemType.Retractable);
         }
 
         public void OnARdemo()
@@ -114,6 +114,7 @@ namespace AR2
                 
                 industryObject.HideAllObjects();
                 cameraShotPanel.SetActive(true);
+                arButton.SetActive(false);
 
                 // industryObject.OnArActive();
                 UpdateMenu(UiState.ARDemo);
@@ -125,6 +126,7 @@ namespace AR2
             }
             else
             {
+                arButton.SetActive(true);
                 industryObject.ShowObjects();
                 
                 industryObject.transform.root.localScale = defaultScale; 
@@ -251,10 +253,12 @@ namespace AR2
             if (uiState == UiState.ARDemo)
             {
                 menuPanel.SetActive(false);
+                backButton.SetActive(false);
             }
             else
             {
                 menuPanel.SetActive(true);
+                backButton.SetActive(true);
             }
             
             switch (uiState)
@@ -307,6 +311,7 @@ namespace AR2
                 case UiState.ARDemo:
                 {
                     menuPanel.SetActive(false);
+                    backButton.SetActive(false);
                 }
                     break;
                 case UiState.NONE:
@@ -392,8 +397,8 @@ namespace AR2
 
         public void BackToMenu()
         {
-            //UnityEngine.SceneManagement.SceneManager.LoadScene(1);
-            Addressables.LoadSceneAsync("Choose", LoadSceneMode.Single);
+            UnityEngine.SceneManagement.SceneManager.LoadScene(1);
+            //Addressables.LoadSceneAsync("Choose", LoadSceneMode.Single);
         }
 
         public override void ShowUI()

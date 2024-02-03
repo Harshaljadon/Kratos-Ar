@@ -10,14 +10,14 @@ public class Element : MonoBehaviour
     //IdPlate,
     Webbing,
     Buckle,
-    //Stitching,
+    Stitching,
     ChestStrap,
-    //SitStrap,
-    //ShoulderStrap,
+    SitStrap,
+    ShoulderStrap,
     ThighStrap,
     PositioningBelt,
     DRing,
-    //Loops,
+    Loops,
     None
     };
     

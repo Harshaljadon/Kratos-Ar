@@ -41,6 +41,10 @@ MonoBehaviour:
     m_Address: Davit Arm
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 0f9064d6b16414611bdf2d22d4efdbc4
+    m_Address: DA 03
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: c2ec2c90f6ba1403d9d488f8157b48ce, type: 2}
   m_SchemaSet:

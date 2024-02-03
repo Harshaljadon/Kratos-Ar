@@ -15,16 +15,16 @@ public class DistBetObjAndCam : MonoBehaviour
     private void OnEnable()
     {
         uRS = GetComponent<UnderRangeStates>();
-        uRS.objectDected += URS_objectDected;
+        uRS.objectDected += URS_objectDectedPassObject;
         
     }
 
     private void OnDisable()
     {
-        uRS.objectDected -= URS_objectDected;
+        uRS.objectDected -= URS_objectDectedPassObject;
     }
 
-    private void URS_objectDected(GameObject obj)
+    private void URS_objectDectedPassObject(GameObject obj)
     {
         MyCamera = obj;
     }

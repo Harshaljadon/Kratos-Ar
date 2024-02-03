@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace AR2
 {
+
     public class ConfinedRope : MonoBehaviour
     {
         public LineRenderer lineRenderer;

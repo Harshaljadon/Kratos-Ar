@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b8ea23d0af452e42b209fa24831637e, type: 3}
+  m_Name: B1_New Stanard Box Building
+  m_EditorClassIdentifier: 
+  _sides:
+    _items:
+    - _builder: {fileID: 11400000, guid: 29167d186bc0a447ca333a9c5ae94a01, type: 2}
+    - _builder: {fileID: 11400000, guid: 29167d186bc0a447ca333a9c5ae94a01, type: 2}
+    - _builder: {fileID: 11400000, guid: e7c9f64ebaeb74b16bc721e84a9ce663, type: 2}
+    - _builder: {fileID: 11400000, guid: 29167d186bc0a447ca333a9c5ae94a01, type: 2}
+  _cap:
+    _builder: {fileID: 11400000, guid: 8c7f481d588ea47cd90d8054b8c56b41, type: 2}

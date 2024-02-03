@@ -21,10 +21,6 @@ MonoBehaviour:
     m_Address: Assets/Safety_Product_assets_FBX/SM_Sewar_Base.FBX
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 543f8371ae9097d4e97df4c858cf8943
-    m_Address: CONFINEDSPACE
-    m_ReadOnly: 0
-    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: c2ec2c90f6ba1403d9d488f8157b48ce, type: 2}
   m_SchemaSet:

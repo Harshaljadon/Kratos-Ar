@@ -2,9 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
-using UnityEngine.ResourceManagement.AsyncOperations;
-using UnityEngine.ResourceManagement.ResourceLocations;
+//using UnityEngine.AddressableAssets;
+//using UnityEngine.ResourceManagement.AsyncOperations;
+//using UnityEngine.ResourceManagement.ResourceLocations;
 
 
 namespace AR2
@@ -72,81 +72,98 @@ namespace AR2
 
          List<GameObject> All_brackets = new List<GameObject>();
         bool previouslyDoneBracket;
-        AsyncOperationHandle<GameObject> handleBracketGameObject, handleWinchGameObject, handleSRLGameObject;
-        List<AsyncOperationHandle<GameObject>> winchHandler, sRLhandler, bracketHandle;
+        //AsyncOperationHandle<GameObject> handleBracketGameObject, handleWinchGameObject, handleSRLGameObject;
+        //List<AsyncOperationHandle<GameObject>> winchHandler, sRLhandler, bracketHandle;
         private void Start()
         {
             //bracketHandle = new List<AsyncOperationHandle<GameObject>>();
-            winchHandler = new List<AsyncOperationHandle<GameObject>>();
-            sRLhandler = new List<AsyncOperationHandle<GameObject>>();
-            bracketHandle = new List<AsyncOperationHandle<GameObject>>();
+            //ResInv();
+
+
         }
+
+        //void ResInv()
+        //{
+        //    winchHandler = new List<AsyncOperationHandle<GameObject>>();
+        //    sRLhandler = new List<AsyncOperationHandle<GameObject>>();
+        //    bracketHandle = new List<AsyncOperationHandle<GameObject>>();
+        //}
 
         private void OnDestroy()
         {
-            if (handleBracketGameObject.IsValid())
-            {
+            //if (handleBracketGameObject.IsValid())
+            //{
 
-            Addressables.Release(handleBracketGameObject);
-            }
+            //Addressables.Release(handleBracketGameObject);
+            //}
 
-            if (handleWinchGameObject.IsValid())
-            {
-            Addressables.Release(handleWinchGameObject);
-            }
-            if (handleSRLGameObject.IsValid())
-            {
-                Addressables.Release(handleSRLGameObject);
-            }
+            //if (handleWinchGameObject.IsValid())
+            //{
+            //Addressables.Release(handleWinchGameObject);
+            //}
+            //if (handleSRLGameObject.IsValid())
+            //{
+            //    Addressables.Release(handleSRLGameObject);
+            //}
 
-            foreach (var item in bracketHandle)
-            {
-                if (item.IsValid())
-                {
-                    Addressables.Release(item);
-                }
-            }
-            bracketHandle.Clear();
-            foreach (var item in winchHandler)
-            {
-                if (item.IsValid())
-                {
-                    Addressables.Release(item);
-                }
-            }
-            winchHandler.Clear();
-            foreach (var item in sRLhandler)
-            {
-                if (item.IsValid())
-                {
-                    Addressables.Release(item);
-                }
-            }
-            sRLhandler.Clear();
+            //foreach (var item in bracketHandle)
+            //{
+            //    if (item.IsValid())
+            //    {
+            //        Addressables.Release(item);
+            //    }
+            //}
+            //bracketHandle.Clear();
+            //foreach (var item in winchHandler)
+            //{
+            //    if (item.IsValid())
+            //    {
+            //        Addressables.Release(item);
+            //    }
+            //}
+            //winchHandler.Clear();
+            //foreach (var item in sRLhandler)
+            //{
+            //    if (item.IsValid())
+            //    {
+            //        Addressables.Release(item);
+            //    }
+            //}
+            //sRLhandler.Clear();
            
 
         }
-        internal void SetItems(ConfinedItemType item,string nameLocRes,Dictionary<string,IResourceLocation> a , AssetReference ObjPrefab)
+        internal void SetItems(ConfinedItemType item,string nameLocRes, GameObject ObjPrefab) //Dictionary<string,IResourceLocation> a ,
         {
             switch (item)
             {
                 case ConfinedItemType.Brackets:
                     {
-                        for (int i = 0; i < bracketHandle.Count; i++)
+                        //for (int i = 0; i < bracketHandle.Count; i++)
+                        //{
+                        //    if (bracketHandle[i].IsValid())
+                        //    {
+                        //        Addressables.Release(bracketHandle[i]);
+                        //    }
+                        //}
+                        foreach (var bracket in brackets)
                         {
-                            if (bracketHandle[i].IsValid())
+                            // remove previous
+                            if (bracket.childCount > 0)
                             {
-                            Addressables.Release(bracketHandle[i]);
+                                for (int i = 0; i < bracket.childCount; i++)
+                                {
+                                    Destroy(bracket.GetChild(i).gameObject);
+                                }
                             }
-                        }
-                        foreach (var bracket1 in brackets)
-                        {
-                            handleBracketGameObject = Addressables.LoadAssetAsync<GameObject>(a[nameLocRes]);
-                            handleBracketGameObject.Completed += op =>
-                            {
-                                Instantiate(op.Result, bracket1);
-                                bracketHandle.Add(op);
-                            };
+                            // add new 
+                            Instantiate(ObjPrefab, bracket);
+                            //handleBracketGameObject = Addressables.LoadAssetAsync<GameObject>(a[nameLocRes]);
+                            //handleBracketGameObject.Completed += op =>
+                            //{
+                            //    Instantiate(op.Result, bracket1);
+                            //    bracketHandle.Add(op);
+                            //};
                         }
                     }
                     break;
@@ -156,25 +173,26 @@ namespace AR2
                         {
                             if (winch.childCount > 0)
                             {
-                                foreach (var ro in winchesConfinedPodItem)
+                                for (int i = 0; i < winch.childCount; i++)
                                 {
-                                    Destroy(ro.gameObject);
+                                    Destroy(winch.GetChild(i).gameObject);
                                 }
-                                Addressables.Release(handleWinchGameObject);
+
+                                //Addressables.Release(handleWinchGameObject);
                                 winchesConfinedPodItem.Clear();
                             }
-
-                            handleWinchGameObject = Addressables.LoadAssetAsync<GameObject>(a[nameLocRes]);
-                            handleWinchGameObject.Completed += op =>
-                            {
-                                var a = op.Result;
-                                GameObject go = Instantiate(a, winch);
-                                winchesConfinedPodItem.Add(go.GetComponent<ConfinedPodItem>());
+                                GameObject go = Instantiate(ObjPrefab, winch);
                                 go.GetComponent<ConfinedPodItem>().itemType = item;
-                                winchHandler.Add(op);
-                            };
-    
-         
+                                winchesConfinedPodItem.Add(go.GetComponent<ConfinedPodItem>());
+
+                            //handleWinchGameObject = Addressables.LoadAssetAsync<GameObject>(a[nameLocRes]);
+                            //handleWinchGameObject.Completed += op =>
+                            //{
+                            //    var a = op.Result;
+                            //    winchHandler.Add(op);
+                            //};
+
+
 
                         }
                         winchRope.UpdateLifeline();
@@ -196,24 +214,23 @@ namespace AR2
                             // remove previous
                             if (retractable.childCount > 0)
                             {
-                                foreach (var rCPI in retractableConfinedPodItem)
+                                for (int i = 0; i < retractable.childCount; i++)
                                 {
-                                    Destroy(rCPI.gameObject);
-
+                                    Destroy(retractable.GetChild(i).gameObject);
                                 }
                                 retractableConfinedPodItem.Clear();
                             }
-
+                            GameObject go = Instantiate(ObjPrefab, retractable);
+                            retractableConfinedPodItem.Add(go.GetComponent<ConfinedPodItem>());
+                            go.GetComponent<ConfinedPodItem>().itemType = item;
                             // add new
-                            handleSRLGameObject = Addressables.LoadAssetAsync<GameObject>(a[nameLocRes]);
-                            handleSRLGameObject.Completed += op =>
-                            {
-                                var a = op.Result;
-                                GameObject go = Instantiate(a, retractable);
-                                retractableConfinedPodItem.Add(go.GetComponent<ConfinedPodItem>());
-                                go.GetComponent<ConfinedPodItem>().itemType = item;
-                                sRLhandler.Add(op);
-                            };
+                            //handleSRLGameObject = Addressables.LoadAssetAsync<GameObject>(a[nameLocRes]);
+                            //handleSRLGameObject.Completed += op =>
+                            //{
+                            //    var a = op.Result;
+                
+                            //    sRLhandler.Add(op);
+                            //};
     
 
                         }

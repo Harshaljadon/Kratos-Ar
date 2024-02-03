@@ -18,13 +18,18 @@ public class MobilemaxCamera : MonoBehaviour
     public float panSpeed = 0.3f;
     public float zoomDampening = 5.0f;
 
+    [SerializeField]
     private float xDeg = 0.0f;
+    [SerializeField]
     private float yDeg = 0.0f;
+    [SerializeField]
     private float currentDistance;
+    [SerializeField]
     private float desiredDistance;
     private Quaternion currentRotation;
     private Quaternion desiredRotation;
     private Quaternion rotation;
+    [SerializeField]
     private Vector3 position;
 
     private Vector3 FirstPosition;
@@ -38,6 +43,11 @@ public class MobilemaxCamera : MonoBehaviour
 
     public bool arMode = false;
 
+    public float zoomSpeed = 5.0f;
+    public float minZoomDistance = 2.0f;
+    public float maxZoomDistance = 10.0f;
+    public float rotationSpeed = 5.0f;
+    public float zoomInput;
 
     void Start() { Init(); }
     void OnEnable() { Init(); }
@@ -63,7 +73,9 @@ public class MobilemaxCamera : MonoBehaviour
         desiredRotation = transform.rotation;
 
         xDeg = Vector3.Angle(Vector3.right, transform.right);
+        //xDeg = Mathf.Deg2Rad* currentRotation.x;
         yDeg = Vector3.Angle(Vector3.up, transform.up);
+        //yDeg = Mathf.Deg2Rad * currentRotation.y;
     }
 
     /*
@@ -73,7 +85,13 @@ public class MobilemaxCamera : MonoBehaviour
     {
         if (!arMode)
         {
-            if (Input.touchCount == 2)
+//#if !UNITY_ANDROID || !UNITY_IOS
+//            zoomInput = Input.GetAxisRaw("Mouse ScrollWheel");
+//            HandleZoomInput(zoomInput);
+//#endif
+//#if UNITY_ANDROID || UNITY_IOS
+
+            if (Input.touchCount == 2 )
             {
                 Touch touchZero = Input.GetTouch(0);
                 Touch touchOne = Input.GetTouch(1);
@@ -86,6 +104,9 @@ public class MobilemaxCamera : MonoBehaviour
 
                 float deltaMagDiff = prevTouchDeltaMag - TouchDeltaMag;
                 desiredDistance += deltaMagDiff * Time.deltaTime * zoomRate * 0.0025f * Mathf.Abs(desiredDistance);
+                //desiredDistance += deltaMagDiff * Time.deltaTime * zoomRate * 0.0025f * Mathf.Abs(desiredDistance);
+                //HandleZoomInput(zoomInputTouch);
+
             }
             // If middle mouse and left alt are selected? ORBIT
             if (Input.touchCount == 1 && Input.GetTouch(0).phase == TouchPhase.Moved)
@@ -96,10 +117,15 @@ public class MobilemaxCamera : MonoBehaviour
                 yDeg = ClampAngle(yDeg, yMinLimit, yMaxLimit);
 
             }
-            desiredRotation = Quaternion.Euler(yDeg, xDeg, 0);
-            currentRotation = transform.rotation;
-            rotation = Quaternion.Lerp(currentRotation, desiredRotation, Time.deltaTime * zoomDampening);
-            transform.rotation = rotation;
+            if (Input.touchCount == 1 || Input.touchCount == 2)
+            {
+                desiredRotation = Quaternion.Euler(yDeg, xDeg, 0);
+                currentRotation = transform.rotation;
+                rotation = Quaternion.Lerp(currentRotation, desiredRotation, Time.deltaTime * zoomDampening);
+                transform.rotation = rotation;
+            }
+//#endif
+
 
 
             if (Input.GetMouseButtonDown(1))
@@ -115,20 +141,77 @@ public class MobilemaxCamera : MonoBehaviour
                 targetOffset = lastOffset + transform.right * delta.x * 0.003f + transform.up * delta.y * 0.003f;
 
             }
+//#if !UNITY_ANDROID || !UNITY_IOS
+//            //+++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-            ////////Orbit Position
+//            // Rotate the camera only when the left mouse button is held down
+//            if (Input.GetMouseButton(0))
+//            {
+//                // Get mouse movement
+//                float mouseX = Input.GetAxis("Mouse X");
+//                float mouseY = Input.GetAxis("Mouse Y");
 
-            // affect the desired Zoom distance if we roll the scrollwheel
+//                // Rotate the camera based on mouse movement
+//                transform.Rotate(Vector3.up * mouseX * rotationSpeed);
+//                transform.Rotate(Vector3.left * mouseY * rotationSpeed);
+
+//                // Optional: Clamp the vertical rotation to limit the camera's pitch
+//                float currentXRotation = transform.eulerAngles.x;
+//                //currentXRotation = Mathf.Clamp(currentXRotation, 0, 180f);
+//                transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, 0);
+//            }
+//#endif
+
+            //if (zoomInput != 0)
+            //{
+            //    // Zoom in and out using the mouse wheel
+            //    float newZoomDistance = transform.position.y - zoomInput * zoomSpeed;
+            //    Debug.Log("ok");
+            //    // Clamp the zoom distance to a specified range
+            //    newZoomDistance = Mathf.Clamp(newZoomDistance, minZoomDistance, maxZoomDistance);
+
+            //    // Apply the zoom
+            //    transform.position = new Vector3(transform.position.x, newZoomDistance, transform.position.z);
+            //}
+
             desiredDistance = Mathf.Clamp(desiredDistance, minDistance, maxDistance);
             currentDistance = Mathf.Lerp(currentDistance, desiredDistance, Time.deltaTime * zoomDampening);
-
             position = target.position - (rotation * Vector3.forward * currentDistance);
 
             position = position - targetOffset;
-
             transform.position = position;
+//#if UNITY_ANDROID || UNITY_IOS
+//#endif
+
+            // Check if the left mouse button is released
+            if (Input.GetMouseButtonUp(0))
+            {
+                // Release the cursor
+                //Cursor.lockState = CursorLockMode.None;
+            }
+            ////////Orbit Position
+
     
         }
+    }
+
+    private void HandleZoomInput(float zoomInput)
+    {
+        // Update the desired distance based on input
+        desiredDistance += zoomInput * zoomSpeed;
+
+        desiredDistance = Mathf.Clamp(desiredDistance, minDistance, maxDistance);
+        currentDistance = Mathf.Lerp(currentDistance, desiredDistance, Time.deltaTime * zoomDampening);
+        position = target.position - (rotation * Vector3.forward * currentDistance);
+
+        position = position - targetOffset;
+        transform.position = position;
+
+        //// Clamp the desired distance to the specified range
+        //desiredDistance = Mathf.Clamp(desiredDistance, minZoomDistance, maxZoomDistance);
+
+        //// Update the camera position based on the desired distance
+        //transform.position = new Vector3(transform.position.x, desiredDistance, transform.position.z);
     }
 
 

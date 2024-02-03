@@ -36,6 +36,7 @@ public class ArPlaceObject : MonoBehaviour
     {
         if (!objectPlaced)
         {
+            //Debug.Log("check");
             onOffHolder.SetActive(false);
             if (wire.Count != 0)
             {
@@ -74,7 +75,7 @@ public class ArPlaceObject : MonoBehaviour
         
         placeAnimator.gameObject.SetActive(true);
         
-        if (!objectPlaced)
+        if (!objectPlaced && this.gameObject.activeInHierarchy)
         {
             scanAnimator.gameObject.SetActive(true);
             scanAnimator.SetTrigger(k_FadeOnAnim);

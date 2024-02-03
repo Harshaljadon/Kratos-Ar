@@ -7,6 +7,8 @@ namespace AR2
 {
     public class IndustryObject : MonoBehaviour
     {
+
+
         public List<GameObject> objectsToHideInCameraShoot = new List<GameObject>();
         public List<GameObject> objectsToHideInAR = new List<GameObject>();
 

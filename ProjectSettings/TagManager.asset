@@ -3,7 +3,10 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - PoleA
+  - PoleB
+  - picCam
   layers:
   - Default
   - TransparentFX
@@ -16,15 +19,15 @@ TagManager:
   - PostProcessing
   - Screen Space
   - Gizmos
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Component UI
+  - RoofBase
+  - Suspension ring1
+  - Shock ab
+  - Anchor
+  - Tensiner
+  - Corner
+  - Worker
+  - wall
   - 
   - 
   - 

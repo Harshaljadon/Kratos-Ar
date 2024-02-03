@@ -2,10 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
+//using UnityEngine.AddressableAssets;
 using UnityEngine.Events;
-using UnityEngine.ResourceManagement.AsyncOperations;
-using UnityEngine.ResourceManagement.ResourceLocations;
+//using UnityEngine.ResourceManagement.AsyncOperations;
+//using UnityEngine.ResourceManagement.ResourceLocations;
 
 namespace AR2
 {
@@ -32,10 +32,14 @@ namespace AR2
         }
 
 
-        public List<AssetReference> podAssetRef = new List<AssetReference>();
-        public List<AssetReference> bracketsAssetRef = new List<AssetReference>();
-        public List<AssetReference> winchesAssetRef = new List<AssetReference>();
-        public List<AssetReference> retractablesAssetRef = new List<AssetReference>();
+        public List<GameObject> podGameObj = new List<GameObject>();
+        public List<GameObject> bracketsGameObj = new List<GameObject>();
+        public List<GameObject> winchesGameObj = new List<GameObject>();
+        public List<GameObject> retractablesGameObj = new List<GameObject>();
+        //public List<AssetReference> podAssetRef = new List<AssetReference>();
+        //public List<AssetReference> bracketsAssetRef = new List<AssetReference>();
+        //public List<AssetReference> winchesAssetRef = new List<AssetReference>();
+        //public List<AssetReference> retractablesAssetRef = new List<AssetReference>();
 
         [SerializeField]
         public List<ItemInfo> ItemInfos = new List<ItemInfo>();
@@ -60,131 +64,136 @@ namespace AR2
             
             groundPlane.gameObject.SetActive(false);
 
-            m_Pods_ToLoadCount = podAssetRef.Count;
-            brackets_ToLoadCount = bracketsAssetRef.Count;
-            winches_ToLoadCount = winchesAssetRef.Count;
-            retractables_ToLoadCount = retractablesAssetRef.Count;
+            m_Pods_ToLoadCount = podGameObj.Count;
+            brackets_ToLoadCount = bracketsGameObj.Count;
+            winches_ToLoadCount = winchesGameObj.Count;
+            retractables_ToLoadCount = retractablesGameObj.Count;
 
-            StartCoroutine(nameof(LoadingMulipleAsset));
-
+            //LoadingParts();
         }
+
+        //void LoadingParts()
+        //{
+        //    StartCoroutine(nameof(LoadingMulipleAsset));
+
+        //}
         public Dictionary<string, bool> namePodStatausDic, nameWinchStatausDic,nameBracketStatusDic,nameSRLStatusDic;
-        public Dictionary<string, IResourceLocation> namePodResLoc,nameWinchResLoc,nameBrackResLoc,nameSrlResLoc;
-        public AsyncOperationHandle<IList<IResourceLocation>> podResouceLocations, winchResouceLocations, bracketResLocation,srlResLocation;
+        //public Dictionary<string, IResourceLocation> namePodResLoc,nameWinchResLoc,nameBrackResLoc,nameSrlResLoc;
+        //public AsyncOperationHandle<IList<IResourceLocation>> podResouceLocations, winchResouceLocations, bracketResLocation,srlResLocation;
         public List<string> keys;
 
-        IEnumerator LoadingMulipleAsset()
-        {
-            if (namePodStatausDic == null) 
-                namePodStatausDic = new Dictionary<string, bool>();
-            if (namePodResLoc == null)
-                namePodResLoc = new Dictionary<string, IResourceLocation>();
-            podResouceLocations = Addressables.LoadResourceLocationsAsync(podAssetRef,
-                   Addressables.MergeMode.Union, typeof(GameObject));
-            yield return podResouceLocations;
+        //IEnumerator LoadingMulipleAsset()
+        //{
+        //    if (namePodStatausDic == null) 
+        //        namePodStatausDic = new Dictionary<string, bool>();
+        //    if (namePodResLoc == null)
+        //        namePodResLoc = new Dictionary<string, IResourceLocation>();
+        //    podResouceLocations = Addressables.LoadResourceLocationsAsync(podAssetRef,
+        //           Addressables.MergeMode.Union, typeof(GameObject));
+        //    yield return podResouceLocations;
 
-            if (nameBracketStatusDic == null)
-                nameBracketStatusDic = new Dictionary<string, bool>();
-            if (nameBrackResLoc == null)
-                nameBrackResLoc = new Dictionary<string, IResourceLocation>();
-            bracketResLocation = Addressables.LoadResourceLocationsAsync(bracketsAssetRef,
-                   Addressables.MergeMode.Union, typeof(GameObject));
-            yield return bracketResLocation;
+        //    if (nameBracketStatusDic == null)
+        //        nameBracketStatusDic = new Dictionary<string, bool>();
+        //    if (nameBrackResLoc == null)
+        //        nameBrackResLoc = new Dictionary<string, IResourceLocation>();
+        //    bracketResLocation = Addressables.LoadResourceLocationsAsync(bracketsAssetRef,
+        //           Addressables.MergeMode.Union, typeof(GameObject));
+        //    yield return bracketResLocation;
 
 
-            foreach (IResourceLocation location in podResouceLocations.Result)
-            {
-                AsyncOperationHandle<GameObject> handle =
-                    Addressables.LoadAssetAsync<GameObject>(location);
-                handle.Completed += op =>
-                {
-                    m_Pods_ToLoadCount--;
-                    var a = location.PrimaryKey;
-                    namePodStatausDic.Add(a, true);
-                    namePodResLoc.Add(a, location);
-                    if (m_Pods_ToLoadCount <= 0)
-                    {
-                        Pods_IsReady = true;
-                        foreach (IResourceLocation location in bracketResLocation.Result)
-                        {
-                            Addressables.LoadAssetAsync<GameObject>(location).Completed += OnShapeLoaded_brackets =>
-                            {
-                                brackets_ToLoadCount--;
-                                var a = location.PrimaryKey;
-                                nameBracketStatusDic.Add(a, true);
-                                nameBrackResLoc.Add(a, location);
-                                if (brackets_ToLoadCount <= 0)
-                                {
-                                    bracketsIsReady = true;
-                                    Addressables.Release(OnShapeLoaded_brackets);
-                                }
+        //    foreach (IResourceLocation location in podResouceLocations.Result)
+        //    {
+        //        AsyncOperationHandle<GameObject> handle =
+        //            Addressables.LoadAssetAsync<GameObject>(location);
+        //        handle.Completed += op =>
+        //        {
+        //            m_Pods_ToLoadCount--;
+        //            var a = location.PrimaryKey;
+        //            namePodStatausDic.Add(a, true);
+        //            namePodResLoc.Add(a, location);
+        //            if (m_Pods_ToLoadCount <= 0)
+        //            {
+        //                Pods_IsReady = true;
+        //                foreach (IResourceLocation location in bracketResLocation.Result)
+        //                {
+        //                    Addressables.LoadAssetAsync<GameObject>(location).Completed += OnShapeLoaded_brackets =>
+        //                    {
+        //                        brackets_ToLoadCount--;
+        //                        var a = location.PrimaryKey;
+        //                        nameBracketStatusDic.Add(a, true);
+        //                        nameBrackResLoc.Add(a, location);
+        //                        if (brackets_ToLoadCount <= 0)
+        //                        {
+        //                            bracketsIsReady = true;
+        //                            Addressables.Release(OnShapeLoaded_brackets);
+        //                        }
 
-                            };
-                        }
-                    }
-                                    Addressables.Release(handle);
-                };
+        //                    };
+        //                }
+        //            }
+        //                            Addressables.Release(handle);
+        //        };
               
-            }
+        //    }
 
-            if (nameWinchStatausDic == null)
-                nameWinchStatausDic = new Dictionary<string, bool>();
-            if (nameWinchResLoc == null)
-                nameWinchResLoc = new Dictionary<string, IResourceLocation>();
+        //    if (nameWinchStatausDic == null)
+        //        nameWinchStatausDic = new Dictionary<string, bool>();
+        //    if (nameWinchResLoc == null)
+        //        nameWinchResLoc = new Dictionary<string, IResourceLocation>();
             
             
-            winchResouceLocations = Addressables.LoadResourceLocationsAsync(winchesAssetRef,
-                   Addressables.MergeMode.Union, typeof(GameObject));
-            yield return podResouceLocations;
+        //    winchResouceLocations = Addressables.LoadResourceLocationsAsync(winchesAssetRef,
+        //           Addressables.MergeMode.Union, typeof(GameObject));
+        //    yield return podResouceLocations;
 
 
-            if (nameSRLStatusDic == null)
-                nameSRLStatusDic = new Dictionary<string, bool>();
-            if (nameSrlResLoc == null)
-                nameSrlResLoc = new Dictionary<string, IResourceLocation>();
-            srlResLocation = Addressables.LoadResourceLocationsAsync(retractablesAssetRef, Addressables.MergeMode.Union, typeof(GameObject));
-            yield return nameSrlResLoc;
+        //    if (nameSRLStatusDic == null)
+        //        nameSRLStatusDic = new Dictionary<string, bool>();
+        //    if (nameSrlResLoc == null)
+        //        nameSrlResLoc = new Dictionary<string, IResourceLocation>();
+        //    srlResLocation = Addressables.LoadResourceLocationsAsync(retractablesAssetRef, Addressables.MergeMode.Union, typeof(GameObject));
+        //    yield return nameSrlResLoc;
 
 
 
-            foreach (IResourceLocation location in winchResouceLocations.Result)
-            {
-                AsyncOperationHandle<GameObject> handle =
-                    Addressables.LoadAssetAsync<GameObject>(location);
-                handle.Completed += op =>
-                {
-                    var a = location.PrimaryKey;
-                    winches_ToLoadCount--;
-                    nameWinchStatausDic.Add(a, true);
-                    nameWinchResLoc.Add(a, location);
-                    if (winches_ToLoadCount <= 0)
-                    {
-                        winchesIsReady = true;
-                        foreach (IResourceLocation location in srlResLocation.Result)
-                        {
-                            Addressables.LoadAssetAsync<GameObject>(location).Completed += OnShapeLoaded_brackets =>
-                            {
-                                retractables_ToLoadCount--;
-                                var a = location.PrimaryKey;
-                                nameSRLStatusDic.Add(a, true);
-                                nameSrlResLoc.Add(a, location);
-                                if (retractables_ToLoadCount <= 0)
-                                {
-                                    retractablesIsReady = true;
-                                    Addressables.Release(OnShapeLoaded_brackets);
-                                }
+        //    foreach (IResourceLocation location in winchResouceLocations.Result)
+        //    {
+        //        AsyncOperationHandle<GameObject> handle =
+        //            Addressables.LoadAssetAsync<GameObject>(location);
+        //        handle.Completed += op =>
+        //        {
+        //            var a = location.PrimaryKey;
+        //            winches_ToLoadCount--;
+        //            nameWinchStatausDic.Add(a, true);
+        //            nameWinchResLoc.Add(a, location);
+        //            if (winches_ToLoadCount <= 0)
+        //            {
+        //                winchesIsReady = true;
+        //                foreach (IResourceLocation location in srlResLocation.Result)
+        //                {
+        //                    Addressables.LoadAssetAsync<GameObject>(location).Completed += OnShapeLoaded_brackets =>
+        //                    {
+        //                        retractables_ToLoadCount--;
+        //                        var a = location.PrimaryKey;
+        //                        nameSRLStatusDic.Add(a, true);
+        //                        nameSrlResLoc.Add(a, location);
+        //                        if (retractables_ToLoadCount <= 0)
+        //                        {
+        //                            retractablesIsReady = true;
+        //                            Addressables.Release(OnShapeLoaded_brackets);
+        //                        }
 
-                            };
-                        }
+        //                    };
+        //                }
 
-                    }
-                                    Addressables.Release(handle);
-                };
-            }
-        }
+        //            }
+        //                            Addressables.Release(handle);
+        //        };
+        //    }
+        //}
         int previousPodindex;
-        AsyncOperationHandle<GameObject> handleGameObject;
-        List<AsyncOperationHandle<GameObject>> podHandleGameObj = new List<AsyncOperationHandle<GameObject>>();
+        //AsyncOperationHandle<GameObject> handleGameObject;
+        //List<AsyncOperationHandle<GameObject>> podHandleGameObj = new List<AsyncOperationHandle<GameObject>>();
         public void SelectItem(ConfinedItemType itemType, int index, string buttonName)
         {
             switch (itemType)
@@ -194,47 +203,50 @@ namespace AR2
                         if (currentActive?.gameObject)
                         {
                             Destroy(currentActive.gameObject);
-                                Addressables.Release(handleGameObject);
+                                //Addressables.Release(handleGameObject);
                             //Destroy(sceneItemHolder.GetChild(0).gameObject);
                             
                         }
-                        if (Pods_IsReady)
-                        {
-                            handleGameObject = Addressables.LoadAssetAsync<GameObject>(namePodResLoc[buttonName]);
-                            previousPodindex = index;
-                            //handleGameObject = podAssetRef[index].InstantiateAsync(sceneItemHolder);
-                            handleGameObject.Completed += op =>
-                            {
-                                var a = op.Result;
-                                GameObject go =  Instantiate(a, sceneItemHolder);
-                                currentActive = go.GetComponent<ConfinedPod>();
-                                podHandleGameObj.Add(op);
-                            };
-                        }
+
+                        currentActive = Instantiate(podGameObj[index], sceneItemHolder).GetComponent<ConfinedPod>();
+                        //if (Pods_IsReady)
+                        //{
+                        //    handleGameObject = Addressables.LoadAssetAsync<GameObject>(namePodResLoc[buttonName]);
+                        //    previousPodindex = index;
+                        //    //handleGameObject = podAssetRef[index].InstantiateAsync(sceneItemHolder);
+                        //    handleGameObject.Completed += op =>
+                        //    {
+                        //        var a = op.Result;
+                        //        GameObject go =  Instantiate(a, sceneItemHolder);
+                        //        currentActive = go.GetComponent<ConfinedPod>();
+                        //        podHandleGameObj.Add(op);
+                        //    };
+                        //}
                         //currentActive = InstantiateAsync(pods[index], sceneItemHolder).GetComponent<ConfinedPod>();
                     }
                     break;
                 case ConfinedItemType.Brackets:
                     {
-                        if (bracketsIsReady)
-                        {
-                        currentActive.SetItems(itemType, buttonName, nameBrackResLoc, bracketsAssetRef[index]);
-                        }
+                        currentActive.SetItems(itemType, buttonName,  bracketsGameObj[index]); //nameBrackResLoc,
+                        //if (bracketsIsReady)
+                        //{
+                        //currentActive.SetItems(itemType, buttonName, nameBrackResLoc, bracketsAssetRef[index]);
+                        //}
                     }
                     break;
                 case ConfinedItemType.Winch:
                     {
+                        currentActive.SetItems(itemType, buttonName,  winchesGameObj[index]); //nameWinchResLoc,
                         if (winchesIsReady)
                         {
-                        currentActive.SetItems(itemType, buttonName, nameWinchResLoc, winchesAssetRef[index]);
                         }
                     }
                     break;
                 case ConfinedItemType.Retractable:
                     {
+                        currentActive.SetItems(itemType, buttonName, retractablesGameObj[index]); //nameSrlResLoc,
                         if (retractablesIsReady)
                         {
-                        currentActive.SetItems(itemType, buttonName,nameSrlResLoc, retractablesAssetRef[index]);
                         }
                     }
                     break;
@@ -247,68 +259,68 @@ namespace AR2
         #region hide
         private void OnDestroy()
         {
-            if (podResouceLocations.IsValid())
-            {
-                Addressables.Release(podResouceLocations);
-            }
-            if (winchResouceLocations.IsValid())
-            {
-                Addressables.Release(winchResouceLocations);
+            //if (podResouceLocations.IsValid())
+            //{
+            //    Addressables.Release(podResouceLocations);
+            //}
+            //if (winchResouceLocations.IsValid())
+            //{
+            //    Addressables.Release(winchResouceLocations);
 
-            }
-            if (handleGameObject.IsValid())
-            {
-                Addressables.Release(handleGameObject);
-            }
-            foreach (var item in podHandleGameObj)
-            {
-                if (item.IsValid())
-                {
-                    Addressables.Release(item);
-                }
-            }
-            if (podHandleGameObj != null)
-            {
-                podHandleGameObj.Clear();
-            }
-            foreach (var shape in podAssetRef)
-            {
-                if (shape != null && shape.IsValid())
-                    shape.ReleaseAsset();
-            }
-            foreach (var shape in bracketsAssetRef)
-            {
-                if (shape != null && shape.IsValid())
-                    shape.ReleaseAsset();
-            }
-            foreach (var shape in winchesAssetRef)
-            {
-                if (shape != null && shape.IsValid())
-                    shape.ReleaseAsset();
-            }
-            foreach (var shape in retractablesAssetRef)
-            {
-                if (shape != null && shape.IsValid())
-                    shape.ReleaseAsset();
-            }
+            //}
+            //if (handleGameObject.IsValid())
+            //{
+            //    Addressables.Release(handleGameObject);
+            //}
+            //foreach (var item in podHandleGameObj)
+            //{
+            //    if (item.IsValid())
+            //    {
+            //        Addressables.Release(item);
+            //    }
+            //}
+            //if (podHandleGameObj != null)
+            //{
+            //    podHandleGameObj.Clear();
+            //}
+            //foreach (var shape in podAssetRef)
+            //{
+            //    if (shape != null && shape.IsValid())
+            //        shape.ReleaseAsset();
+            //}
+            //foreach (var shape in bracketsAssetRef)
+            //{
+            //    if (shape != null && shape.IsValid())
+            //        shape.ReleaseAsset();
+            //}
+            //foreach (var shape in winchesAssetRef)
+            //{
+            //    if (shape != null && shape.IsValid())
+            //        shape.ReleaseAsset();
+            //}
+            //foreach (var shape in retractablesAssetRef)
+            //{
+            //    if (shape != null && shape.IsValid())
+            //        shape.ReleaseAsset();
+            //}
             
-            if (namePodStatausDic != null)
-            {
-                namePodStatausDic.Clear();
-            }
-            if (nameWinchStatausDic != null)
-            {
-                nameWinchStatausDic.Clear();
-            }
+            //if (namePodStatausDic != null)
+            //{
+            //    namePodStatausDic.Clear();
+            //}
+            //if (nameWinchStatausDic != null)
+            //{
+            //    nameWinchStatausDic.Clear();
+            //}
             
-            if (namePodResLoc != null)
-            {
-                nameWinchResLoc.Clear();
-            }
-            if (nameWinchResLoc != null)
-            {
-                nameWinchResLoc.Clear();
-            }
+            //if (namePodResLoc != null)
+            //{
+            //    nameWinchResLoc.Clear();
+            //}
+            //if (nameWinchResLoc != null)
+            //{
+            //    nameWinchResLoc.Clear();
+            //}
  
 
         }
@@ -352,27 +364,27 @@ namespace AR2
 
         public void LoadImageFromGallery()
         {
-            NativeGallery.Permission permission = NativeGallery.GetImageFromGallery( ( path ) =>
-            {
-                if( path != null )
-                {
-                    if (loadedTexture)
-                    {
-                        Destroy(loadedTexture);
-                    }
+            //NativeGallery.Permission permission = NativeGallery.GetImageFromGallery( ( path ) =>
+            //{
+            //    if( path != null )
+            //    {
+            //        if (loadedTexture)
+            //        {
+            //            Destroy(loadedTexture);
+            //        }
                     
-                    // Create Texture from selected image
-                    loadedTexture = NativeGallery.LoadImageAtPath(path);
-                    if( loadedTexture == null )
-                    {
-                        Debug.Log( "Couldn't load texture from " + path );
-                        return;
-                    }
+            //        // Create Texture from selected image
+            //        loadedTexture = NativeGallery.LoadImageAtPath(path);
+            //        if( loadedTexture == null )
+            //        {
+            //            Debug.Log( "Couldn't load texture from " + path );
+            //            return;
+            //        }
                     
-                    groundPlane.gameObject.SetActive(true);
-                    groundPlane.material.mainTexture = loadedTexture;
-                }
-            }, "Select a image", "image/*" );
+            //        groundPlane.gameObject.SetActive(true);
+            //        groundPlane.material.mainTexture = loadedTexture;
+            //    }
+            //}, "Select a image", "image/*" );
             
         }
     }

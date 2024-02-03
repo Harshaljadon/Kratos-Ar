@@ -3,24 +3,24 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.AddressableAssets;
-using UnityEngine.ResourceManagement.AsyncOperations;
+//using UnityEngine.AddressableAssets;
+//using UnityEngine.ResourceManagement.AsyncOperations;
 using System;
 
 namespace AR2
 {
-    [Serializable]
-    public class AssetReferenceTMP_FontAsset : AssetReferenceT<TMP_FontAsset>
-    {
-        public AssetReferenceTMP_FontAsset(string guid) : base(guid)
-        {
-        }
-    }
+    //[Serializable]
+    //public class AssetReferenceTMP_FontAsset : AssetReferenceT<TMP_FontAsset>
+    //{
+    //    public AssetReferenceTMP_FontAsset(string guid) : base(guid)
+    //    {
+    //    }
+    //}
     public class UIElement : MonoBehaviour
     {
 
 
-        public AssetReferenceTMP_FontAsset materialReference;
+        //public AssetReferenceTMP_FontAsset materialReference;
 
 
         public TMP_Text nameTxt;
@@ -35,18 +35,18 @@ namespace AR2
         private ConfinedUI uiManager;
         ConfinedSpaceManager cSM;
 
-        AsyncOperationHandle<TMP_FontAsset> handleOp;
+        //AsyncOperationHandle<TMP_FontAsset> handleOp;
 
         private void OnEnable()
         {
             cSM = FindObjectOfType<ConfinedSpaceManager>();
-            handleOp = materialReference.LoadAssetAsync<TMP_FontAsset>();
-            handleOp.Completed += (op) =>
-            {
-                nameTxt.font = op.Result;
-                downloading.font = op.Result;
+            //handleOp = materialReference.LoadAssetAsync<TMP_FontAsset>();
+            //handleOp.Completed += (op) =>
+            //{
+            //    nameTxt.font = op.Result;
+            //    downloading.font = op.Result;
 
-            };
+            //};
             //Txt.font.atlas.text = textureReference.LoadAssetAsync<Texture>().Result;
         }
 
@@ -56,21 +56,22 @@ namespace AR2
             uiManager = transform.root.GetComponent<ConfinedUI>();
         }
 
-        private void OnDisable()
-        {
+        //private void OnDisable()
+        //{
 
-            Addressables.Release(handleOp);
-        }
+        //    Addressables.Release(handleOp);
+        //}
         private void Update()
         {
             switch (buttonType)
             {
                 case ConfinedItemType.Pod:
-                    var a = nameTxt.text;
+                    //var a = nameTxt.text;
                     //bool result;
-                    if (cSM.namePodStatausDic[a] && !button.interactable)
+                    //if (cSM.namePodStatausDic[a] && !button.interactable)
+                    if (!button.interactable)
                     {
-                        downloading.gameObject.SetActive(false);
+                        //downloading.gameObject.SetActive(false);
                         button.interactable = true;
                         var tempCol = image.color;
                         tempCol.a = 1f;
@@ -78,9 +79,10 @@ namespace AR2
                     } 
                     break;
                 case ConfinedItemType.Brackets:
-                    if (cSM.BracketsIsReady && !button.interactable)
+                    //if (cSM.BracketsIsReady && !button.interactable)
+                    if ( !button.interactable)
                     {
-                        downloading.gameObject.SetActive(false);
+                        //downloading.gameObject.SetActive(false);
                         button.interactable = true;
                         var tempCol = image.color;
                         tempCol.a = 1f;
@@ -89,9 +91,10 @@ namespace AR2
                     break;
                 case ConfinedItemType.Winch:
                     var b = nameTxt.text;
-                    if (cSM.nameWinchStatausDic[b] && !button.interactable)
+                    //if (cSM.nameWinchStatausDic[b] && !button.interactable)
+                    if ( !button.interactable)
                     {
-                        downloading.gameObject.SetActive(false);
+                        //downloading.gameObject.SetActive(false);
                         button.interactable = true;
                         var tempCol = image.color;
                         tempCol.a = 1f;
@@ -99,9 +102,10 @@ namespace AR2
                     }
                     break;
                 case ConfinedItemType.Retractable:
-                    if (cSM.RetractablesIsReady && !button.interactable)
+                    //if (cSM.RetractablesIsReady && !button.interactable)
+                    if ( !button.interactable)
                     {
-                        downloading.gameObject.SetActive(false);
+                        //downloading.gameObject.SetActive(false);
                         button.interactable = true;
                         var tempCol = image.color;
                         tempCol.a = 1f;
@@ -110,10 +114,10 @@ namespace AR2
                     break;
                 
             }
-            if (cSM.podAssetRef[buttonIndex].IsValid())
-            {
+            //if (cSM.podAssetRef[buttonIndex].IsValid())
+            //{
 
-            }
+            //}
         }
         void OnPressedCell()
         {

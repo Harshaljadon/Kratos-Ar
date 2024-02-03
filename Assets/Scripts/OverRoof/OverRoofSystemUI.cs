@@ -5,81 +5,112 @@ using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
 using UnityEngine.SceneManagement;
-using UnityEngine.AddressableAssets;
+//using UnityEngine.AddressableAssets;
 
 namespace AR2
 {
 
-    public class OverRoofSystemUI : UiManagerBase
+    public class OverRoofSystemUI : WireRopeSystemUI
     {
-        public enum UiState
-        {
-            roof,
-            anchor,
-            segment,
-            intermidiate,
-            cameraShot,
-            AR
-        }
+        #region Component
+        [Header("Component Ref")]
+        [SerializeField]
+        GameLoader gameLoader;
 
         public OverRoofSystem overRoofSystem;
         public ARController arController;
+        public GameObject cameraShotPanel;
+        public IndustryObject industryObject;
+        public ArPlaceObject arPlaceObject;
+        public TouchControls arControls;
+        public MobilemaxCamera cameraControls;
+        public ScreenShotHandler screenShotHandler;
 
         public RectTransform uiRootPanel;
-
         public RectTransform roofPanel;
         public RectTransform anchorPanel;
         public RectTransform segmentPanel;
         public RectTransform intermidatePanel;
-
-        public RectTransform topPanel;
-        public RectTransform bottomPanel;
-
-        public TMP_Text headingText;
-
-        public TMP_Text lengthText;
-        public TMP_Text widthText;
-
-        public TMP_Text cornersText;
-
+        public RectTransform shockAborberPanel;
+        public RectTransform tensionerPanel;
+        public RectTransform tensionalPanelCount;
+        public RectTransform cableTerminationPanel;
+        public RectTransform cableTerminationButtonPanel;
         public RectTransform segment1Panel;
         public RectTransform segment2Panel;
         public RectTransform segment3Panel;
+        public RectTransform topPanel;
+        public RectTransform bottomPanel;
+        public RectTransform[] intermidiatePanels;
+
+        public TMP_Text headingText;
+        public TMP_Text lengthText;
+        public TMP_Text widthText;
+        public TMP_Text cornersText;
         public TMP_Text segment1Text;
         public TMP_Text segment2Text;
         public TMP_Text segment3Text;
-
-        public RectTransform[] intermidiatePanels;
+        public TMP_Text anchorCode_Text;
         public TMP_Text[] intermidiateTexts;
-
-        public List<Sprite> anchorSprites = new List<Sprite>();
+        [SerializeField] TMP_Text shockAborberTypeText;
+        [SerializeField] TMP_Text shockAborberTypeCountText;
+        [SerializeField] TMP_Text tensionerTypeText;
+        [SerializeField] TMP_Text tensionerTypeCountText;
+        [SerializeField] TMP_Text cableTerminationpointA;
+        [SerializeField] TMP_Text cableTerminationpointB;
+        //public List<Sprite> anchorSprites = new List<Sprite>();
 
         public Image achorImage;
-
         public Image roofButton;
         public Image anchorButton;
         public Image segmentButton;
         public Image intermidiateButton;
         public Image arButton;
 
-
-        public GameObject cameraShotPanel;
-        public IndustryObject industryObject;
-        public ArPlaceObject arPlaceObject;
-
-        public TouchControls arControls;
-        public MobilemaxCamera cameraControls;
-        public ScreenShotHandler screenShotHandler;
-        
-        private UiState uiState;
-        private bool isArON = false;
-
-        int anchorIndex = 0;
-
         private CanvasGroup canvasGroup;
+        #endregion
+
+        #region Feild
+        [Header("Feild")]
+
+        private UiState uiState;
+        public UiState UiState
+        {
+            get
+            {
+                return uiState;
+            }
+        }
+        public bool isArON = false;
+
+        int shockAbsorberCount = 2,tensionerCount = 1, cableTerminationCountPointA, cableTerminationCountPointB = 2, tensinerTypeCount, anchorIndex;
+
+
+
+        public int CableTerminationIndexA
+        {
+            get { return cableTerminationCountPointA; }
+        }
+
+        public int CableTerminationIndexB
+        {
+            get { return cableTerminationCountPointB; }
+        }
+
+        public int AnchorIndex
+        {
+            get { return anchorIndex; }
+            
+        }
+
         
         private Vector3 defaultScale = Vector3.one;
         private Vector3 arScale = Vector3.one * 0.25f;
+
+   
+        [SerializeField] List<string> CableTerminationName;
+        [SerializeField] List<string> PostName;
+        #endregion
 
         private void Awake()
         {
@@ -101,19 +132,36 @@ namespace AR2
 
             cameraShotPanel.SetActive(false);
 
-            uiState = UiState.roof;
-            OnUiStateChange();
+            //uiState = UiState.roof;
+            //OnUiStateChange();
 
             arControls.isArMode = isArON;
             cameraControls.arMode = isArON;
+
+            shockAborberTypeCountText.text = "Count : " + shockAbsorberCount.ToString();
+            tensionerTypeCountText.text = "Count : " + tensionerCount.ToString();
+            tensionerTypeText.text = "PN 4000(03)";
+
         }
 
-        public void SetCorners(int change)
+        public override void SetCorners(int change)
         {
+            gameLoader.currentCornerNumber += change;
+            if (gameLoader.currentCornerNumber >= 2)
+            {
+                gameLoader.currentCornerNumber = 2;
+            }
+            else if(gameLoader.currentCornerNumber < 0)
+            {
+
+                gameLoader.currentCornerNumber = 0;
+            }
             overRoofSystem.SetCorners(change);
-            cornersText.text = (overRoofSystem.corners).ToString(); 
+            cornersText.text = "Corners : " + (overRoofSystem.corners).ToString(); 
             SetSegmentUiVisibility();
         }
+
+        #region segment
 
         void SetSegmentUiVisibility() // also used for intermidiate
         {
@@ -160,25 +208,64 @@ namespace AR2
             }
         }
 
-        public void IncSegmentLength(int SegNumber)
+        public override void IncSegmentLength(int SegNumber)
         {
             overRoofSystem.ApplySegmentChange(SegNumber, 1);
             SetSegmentText();
+            switch (SegNumber)
+            {
+                case 0:
+                    gameLoader.currentS1Length = overRoofSystem.segment1Length;
+                    break;
+                case 1:
+                    gameLoader.currentS2Length = overRoofSystem.segment2Length;
+                    break;
+                case 2:
+                    gameLoader.currentS3Length = overRoofSystem.segment3Length;
+                    break;
+   
+            }
         }
 
-        public void DecSegmentLength(int SegNumber)
+        public override void DecSegmentLength(int SegNumber)
         {
             overRoofSystem.ApplySegmentChange(SegNumber, -1); // -1 reresent to reduce
             SetSegmentText();
+
+            switch (SegNumber)
+            {
+                case 0:
+                    gameLoader.currentS1Length = overRoofSystem.segment1Length;
+                    break;
+                case 1:
+                    gameLoader.currentS2Length = overRoofSystem.segment2Length;
+                    break;
+                case 2:
+                    gameLoader.currentS3Length = overRoofSystem.segment3Length;
+                    break;
+
+            }
         }
 
         void SetSegmentText()
         {
-            segment1Text.text = overRoofSystem.segment1Length.ToString();
-            segment2Text.text = overRoofSystem.segment2Length.ToString();
-            segment3Text.text = overRoofSystem.segment3Length.ToString();
+            segment1Text.text = "Segment1: " + overRoofSystem.segment1Length.ToString();
+            segment2Text.text = "Segment2: " + overRoofSystem.segment2Length.ToString();
+            segment3Text.text = "Segment3: " + overRoofSystem.segment3Length.ToString();
         }
 
+        #endregion
+
+        #region roof size
+
+        // access via button in canvas which is segment button increate decrease length
+
+        public override void AdjustRoofSize()
+        {
+            //Debug.Log("checking");
+            overRoofSystem.UpdateBuildingroof();
+        }
+        #region old roof size adjust function
         public void IncreseRoofLength()
         {
             overRoofSystem.IncreseRoofLength();
@@ -202,21 +289,279 @@ namespace AR2
             overRoofSystem.DecreseRoofWidth();
             widthText.text = overRoofSystem.RoofWidth.ToString();
         }
+        #endregion
 
-        public void NextAnchor()
+        #endregion
+
+        #region Tensioner
+
+        public override void IncDecTensioner(int vale)
         {
+            // forward
+            if (vale == 1)
+            {
+                if (tensionerCount < 2)
+                {
+                    tensionerCount++;
+
+                }
+            }
+            // backward
+            else if (vale == -1)
+            {
+                if (tensionerCount > 1)
+                {
+                    tensionerCount--;
+
+                }
+            }
+
+            tensionerTypeCountText.text = "Count : " + tensionerCount.ToString();
+            overRoofSystem.TensionerQuantityUpdate(tensionerCount);
+        }
+
+
+        public override void ChangeTensionerType(int vale)
+        {
+            if (vale == 0)
+            {
+                tensinerTypeCount++;
+                if (tensinerTypeCount >1)
+                {
+                    tensinerTypeCount = 2;
+                    cableTerminationButtonPanel.gameObject.SetActive(true);
+                tensionerTypeText.text = "PN 7000(05)";
+                    cableTerminationCountPointA = 0;
+                    cableTerminationCountPointB = 2;
+                    tensionalPanelCount.gameObject.SetActive(false);
+                }
+                else
+                {
+                    tensionalPanelCount.gameObject.SetActive(true);
+                    cableTerminationButtonPanel.gameObject.SetActive(false);
+
+                tensionerTypeText.text = "PN 4000(03) SL";
+                }
+                //overRoofSystem.TensionerTypeUpdate(0);
+            }
+            else if (vale == 1)
+            {
+                    tensionalPanelCount.gameObject.SetActive(true);
+                cableTerminationButtonPanel.gameObject.SetActive(false);
+                tensinerTypeCount--;
+                if (tensinerTypeCount < 0)
+                {
+                    tensinerTypeCount = 0;
+
+                }
+                tensionerTypeText.text = "PN 4000(03)";
+
+            }
+            //Debug.Log(tensinerTypeCount);
+                overRoofSystem.TensionerTypeUpdate(tensinerTypeCount);
+        }
+        #endregion
+
+        #region Cable Termination
+        public override void ChangeCableTerminationPointA(int ValuePassedPointA)
+        {
+            if (ValuePassedPointA ==0)
+            {
+                cableTerminationCountPointA++;
+                if (cableTerminationCountPointA >1)
+                {
+                    cableTerminationCountPointA = 1;
+                }
+            }
+            else
+            {
+                cableTerminationCountPointA--;
+                if (cableTerminationCountPointA <0)
+                {
+                    cableTerminationCountPointA = 0;
+                }
+
+            }
+
+            overRoofSystem.UpdateCableTermination((byte)cableTerminationCountPointA, 0);
+            if (cableTerminationCountPointA == 0)
+            {
+            cableTerminationpointA.text =   CableTerminationName[cableTerminationCountPointA +3] + " at Extremity 1";
+
+            }
+            else
+            {
+            cableTerminationpointA.text =   CableTerminationName[cableTerminationCountPointA +1] + " at Extremity 1";
+
+            }
+        }
+
+        public override void ChangeCableTerminationPointB(int ValuePassedPointB)
+        {
+            if (ValuePassedPointB == 0)
+            {
+                cableTerminationCountPointB++;
+                if (cableTerminationCountPointB > 3)
+                {
+                    cableTerminationCountPointB = 3;
+                }
+            }
+            else
+            {
+                cableTerminationCountPointB--;
+                if (cableTerminationCountPointB < 0)
+                {
+                    cableTerminationCountPointB = 0;
+                }
+
+            }
+            overRoofSystem.UpdateCableTermination((byte)cableTerminationCountPointB, 1);
+            cableTerminationpointB.text = CableTerminationName[cableTerminationCountPointB] + " at Extremity 2 ";
+
+        }
+        #endregion
+
+        #region ShockAbs
+
+        public override void IncreaseDecreadeShockAbsorber(int value)
+        {
+            // forward
+            if (value == 1)
+            {
+                //Debug.Log("enter");
+
+                if (shockAbsorberCount < 2)
+                {
+                    shockAbsorberCount++;
+
+                }
+            }
+            // backward
+            else if(value == -1)
+            {
+                if (shockAbsorberCount > 0)
+                {
+                    shockAbsorberCount--;
+
+                }
+            }
+
+            shockAborberTypeCountText.text = "Count : " + shockAbsorberCount.ToString();
+
+            overRoofSystem.OnOffShoockAbsorber(shockAbsorberCount);
+        }
+
+
+
+
+        public override void ChangeShockAborberType(int vale)
+        {
+            
+            if (vale == 0)
+            {
+                shockAborberTypeText.text = "Non Cover Shock Absorber";
+                overRoofSystem.ShockAborberType(0);
+            }
+            else if (vale == 1)
+            {
+                shockAborberTypeText.text = "Cover Shock Absorber";
+                overRoofSystem.ShockAborberType(1);
+
+            }
+        }
+
+        #endregion
+
+        #region Change Anchor
+        /// <summary>
+        /// change anchor type by passing value
+        /// </summary>
+        /// <param name="id">id = 1 is next and id = -1 is previous </param>
+        public override void NextBackAnchor(int id)
+        {
+            base.NextBackAnchor(id);
+            //switch (id)
+            //{
+            //    case 1:
+            //        NextAnchor();
+            //        break;
+            //    case -1:
+            //        PreviousAnchor();
+            //        break;
+            //}
+        }
+
+        protected override void NextAnchor()
+        {
+            gameLoader.currentAnchorIndex++;
+            if (gameLoader.currentAnchorIndex >= gameLoader.anchorSizename -1 )
+            {
+                gameLoader.currentAnchorIndex = gameLoader.anchorSizename -1;
+            }
             overRoofSystem.SetAnchor(true);
             anchorIndex = overRoofSystem.GetAchorIndex();
             SetAchorImage(anchorIndex);
         }
 
-        public void PreviousAnchor()
+        protected override void PreviousAnchor()
         {
+            gameLoader.currentAnchorIndex--;
+            if (gameLoader.currentAnchorIndex < 0)
+            {
+                gameLoader.currentAnchorIndex = 0;
+            }
             overRoofSystem.SetAnchor(false);
             anchorIndex = overRoofSystem.GetAchorIndex();
             SetAchorImage(anchorIndex);
         }
+        #endregion
 
+        #region intermediate
+        public override void IncreaseIntermidiate(int onSegment)
+        {
+            overRoofSystem.IncreaseIntermidiate(onSegment);
+            UpdateIntermidiateText();
+            switch (onSegment)
+            {
+                case 0:
+                    gameLoader.currecntS1Inter = overRoofSystem.intermidateCounts[0];
+                    break;
+                case 1:
+                    gameLoader.currecntS2Inter = overRoofSystem.intermidateCounts[1];
+                    break;
+                case 2:
+                    gameLoader.currecntS3Inter = overRoofSystem.intermidateCounts[2];
+                    break;
+            }
+        }
+        public override void DecreaseIntermidiate(int onSegment)
+        {
+            overRoofSystem.DecreaseIntermidiate(onSegment);
+            UpdateIntermidiateText();
+
+            switch (onSegment)
+            {
+                case 0:
+                    gameLoader.currecntS1Inter = overRoofSystem.intermidateCounts[0];
+                    break;
+                case 1:
+                    gameLoader.currecntS2Inter = overRoofSystem.intermidateCounts[1];
+                    break;
+                case 2:
+                    gameLoader.currecntS3Inter = overRoofSystem.intermidateCounts[2];
+                    break;
+            }
+        }
+
+        void UpdateIntermidiateText()
+        {
+            for (int i = 0; i < intermidiateTexts.Length; i++)
+            {
+                intermidiateTexts[i].text = $"Segment{i + 1} : " + overRoofSystem.intermidateCounts[i].ToString();
+                //intermidiateTexts[i].text = $"Intermidiate{i+1} : " + overRoofSystem.intermidateCounts[i].ToString();
+            }
+        }
+        #endregion
         public void OnBackButtonPressed()
         {
             // close ar session if On
@@ -227,12 +572,12 @@ namespace AR2
             }
 
             // level choose scene
-            //UnityEngine.SceneManagement.SceneManager.LoadScene(1);
-            Addressables.LoadSceneAsync("Choose", LoadSceneMode.Single);
+            SceneManager.LoadScene(1);
+            //Addressables.LoadSceneAsync("Choose", LoadSceneMode.Single);
 
         }
 
-
+        #region bottom button preesed
         public void OnRoofButtonPressed()
         {
             uiState = UiState.roof;
@@ -255,6 +600,25 @@ namespace AR2
             uiState = UiState.intermidiate;
             OnUiStateChange();
         }
+
+        public void OnShockAborberButtonPressed()
+        {
+            uiState = UiState.shockAbsorber;
+            OnUiStateChange();
+        }
+
+        public void OnTensionerButtonPressed()
+        {
+            uiState = UiState.tensioner;
+            OnUiStateChange();
+        }
+
+        public void OnCableTerminationPanelButtonePressed()
+        {
+            uiState = UiState.cableTermination;
+            OnUiStateChange();
+        }
+
         public void OnArButtonPressed()
         {
             isArON = !isArON;
@@ -282,9 +646,10 @@ namespace AR2
             }
             else
             {
-                industryObject.transform.root.localScale = defaultScale; 
-                
-                
+                industryObject.transform.root.localScale = defaultScale;
+
+                topPanel.gameObject.SetActive(true);
+
                 industryObject.ShowObjects();
                 industryObject.OnArDeactivate();
                 
@@ -297,6 +662,7 @@ namespace AR2
             }
            
         }
+        #endregion
 
         public void TakeARShot()
         {
@@ -371,7 +737,8 @@ namespace AR2
 
         private void SetAchorImage(int index)
         {
-            achorImage.sprite = anchorSprites[index];
+            anchorCode_Text.text = PostName[index];
+            //achorImage.sprite = anchorSprites[index];
         }
 
         private void OnUiStateChange()
@@ -380,16 +747,20 @@ namespace AR2
             {
                 case UiState.roof:
                     {
-                        roofPanel.gameObject.SetActive(!roofPanel.gameObject.activeSelf);
+                        //roofPanel.gameObject.SetActive(!roofPanel.gameObject.activeSelf);
                         
-                        topPanel.gameObject.SetActive(roofPanel.gameObject.activeSelf);
+                        //topPanel.gameObject.SetActive(roofPanel.gameObject.activeSelf);
                         
                         bottomPanel.gameObject.SetActive(true);
                         
                         anchorPanel.gameObject.SetActive(false);
                         segmentPanel.gameObject.SetActive(false);
                         intermidatePanel.gameObject.SetActive(false);
+                        shockAborberPanel.gameObject.SetActive(false);
                         cameraShotPanel.gameObject.SetActive(false);
+                        tensionerPanel.gameObject.SetActive(false);
+                        cableTerminationPanel.gameObject.SetActive(false);
+
                         overRoofSystem.HideImagePanel();
 
                         if (roofPanel.gameObject.activeSelf)
@@ -406,16 +777,21 @@ namespace AR2
                 case UiState.anchor:
                     {
                         anchorPanel.gameObject.SetActive(!anchorPanel.gameObject.activeSelf);
-                        topPanel.gameObject.SetActive(anchorPanel.gameObject.activeSelf);
-                        
+                        //topPanel.gameObject.SetActive(anchorPanel.gameObject.activeSelf);
+                        topPanel.gameObject.SetActive(true);
+
+
                         bottomPanel.gameObject.SetActive(true);
                         
                         
                         roofPanel.gameObject.SetActive(false);
                         segmentPanel.gameObject.SetActive(false);
                         intermidatePanel.gameObject.SetActive(false);
+                        shockAborberPanel.gameObject.SetActive(false);
                         cameraShotPanel.gameObject.SetActive(false);
-                        
+                        tensionerPanel.gameObject.SetActive(false);
+                        cableTerminationPanel.gameObject.SetActive(false);
+
                         overRoofSystem.HideImagePanel();
 
                         if (anchorPanel.gameObject.activeSelf)
@@ -430,22 +806,28 @@ namespace AR2
                 case UiState.segment:
                     {
                         segmentPanel.gameObject.SetActive(!segmentPanel.gameObject.activeSelf);
-                        topPanel.gameObject.SetActive(segmentPanel.gameObject.activeSelf);
-                        
+                        //topPanel.gameObject.SetActive(segmentPanel.gameObject.activeSelf);
+                        topPanel.gameObject.SetActive(true);
+
+
                         bottomPanel.gameObject.SetActive(true);
 
                         anchorPanel.gameObject.SetActive(false);
                         roofPanel.gameObject.SetActive(false);
                         intermidatePanel.gameObject.SetActive(false);
+                        shockAborberPanel.gameObject.SetActive(false);
                         cameraShotPanel.gameObject.SetActive(false);
-                        
+                        tensionerPanel.gameObject.SetActive(false);
+                        cableTerminationPanel.gameObject.SetActive(false);
+
+
                         overRoofSystem.HideImagePanel();
 
                         if (segmentPanel.gameObject.activeSelf)
                         {
                             SetSegmentText();
                             SetSegmentUiVisibility();
-                            cornersText.text = (overRoofSystem.corners ).ToString();
+                            cornersText.text = "Corners : " + (overRoofSystem.corners ).ToString();
                             headingText.text = "Please Enter Segment details";
 
                             // segmentButton.color = selectedColor;
@@ -456,15 +838,22 @@ namespace AR2
                 case UiState.intermidiate:
                     {
                         intermidatePanel.gameObject.SetActive(!intermidatePanel.gameObject.activeSelf);
-                        topPanel.gameObject.SetActive(intermidatePanel.gameObject.activeSelf);
-                        
+                        //topPanel.gameObject.SetActive(intermidatePanel.gameObject.activeSelf);
+                        topPanel.gameObject.SetActive(true);
+
+
                         bottomPanel.gameObject.SetActive(true);
-                        
+
                         anchorPanel.gameObject.SetActive(false);
                         roofPanel.gameObject.SetActive(false);
                         segmentPanel.gameObject.SetActive(false);
                         cameraShotPanel.gameObject.SetActive(false);
-                        
+                        shockAborberPanel.gameObject.SetActive(false);
+                        tensionerPanel.gameObject.SetActive(false);
+                        cableTerminationPanel.gameObject.SetActive(false);
+
+
+
                         overRoofSystem.HideImagePanel();
 
                         if(intermidatePanel.gameObject.activeSelf)
@@ -485,7 +874,9 @@ namespace AR2
 
                         bottomPanel.gameObject.SetActive(false);
                         topPanel.gameObject.SetActive(false);
-                        
+                        cableTerminationPanel.gameObject.SetActive(false);
+
+
                         // change to AR view mode
                         if (cameraShotPanel.gameObject.activeSelf)
                         {
@@ -496,6 +887,8 @@ namespace AR2
                     break;
                 case UiState.AR:
                     {
+
+                        topPanel.gameObject.SetActive(false);
                         cameraShotPanel.gameObject.SetActive(true);
                         anchorPanel.gameObject.SetActive(false);
                         roofPanel.gameObject.SetActive(false);
@@ -506,12 +899,94 @@ namespace AR2
                         topPanel.gameObject.SetActive(false);
                         
                         headingText.text = "Please place the object";
+                        shockAborberPanel.gameObject.SetActive(false);
+                        tensionerPanel.gameObject.SetActive(false);
+                        cableTerminationPanel.gameObject.SetActive(false);
+
                         // arButton.color = selectedColor;
+                    }
+                    break;
+                case UiState.shockAbsorber:
+                    {
+                        shockAborberPanel.gameObject.SetActive(!shockAborberPanel.gameObject.activeSelf);
+                        //topPanel.gameObject.SetActive(shockAborberPanel.gameObject.activeSelf);
+                        topPanel.gameObject.SetActive(true);
+
+                        bottomPanel.gameObject.SetActive(true);
+
+                        anchorPanel.gameObject.SetActive(false);
+                        roofPanel.gameObject.SetActive(false);
+                        segmentPanel.gameObject.SetActive(false);
+                        cameraShotPanel.gameObject.SetActive(false);
+                        tensionerPanel.gameObject.SetActive(false);
+                        intermidatePanel.gameObject.SetActive(false);
+                        cableTerminationPanel.gameObject.SetActive(false);
+
+
+
+                        overRoofSystem.HideImagePanel();
+
+                        if (shockAborberPanel.gameObject.activeSelf)
+                        {
+                            headingText.text = "Please Enter ShockAbsorber details";
+                            // intermidiateButton.color = selectedColor;
+                        }
+                    }
+                    break;
+                case UiState.tensioner:
+                    {
+                        tensionerPanel.gameObject.SetActive(!tensionerPanel.gameObject.activeSelf);
+                        //topPanel.gameObject.SetActive(tensionerPanel.gameObject.activeSelf);
+                        topPanel.gameObject.SetActive(true);
+
+                        bottomPanel.gameObject.SetActive(true);
+
+                        anchorPanel.gameObject.SetActive(false);
+                        roofPanel.gameObject.SetActive(false);
+                        segmentPanel.gameObject.SetActive(false);
+                        cameraShotPanel.gameObject.SetActive(false);
+                        shockAborberPanel.gameObject.SetActive(false);
+                        intermidatePanel.gameObject.SetActive(false);
+                        cableTerminationPanel.gameObject.SetActive(false);
+
+
+                        overRoofSystem.HideImagePanel();
+
+                        if (tensionerPanel.gameObject.activeSelf)
+                        {
+                            headingText.text = "Please Enter Tensioner details";
+                            // intermidiateButton.color = selectedColor;
+                        }
+                    }
+                    break;
+                case UiState.cableTermination:
+                    {
+                        cableTerminationPanel.gameObject.SetActive(!cableTerminationPanel.gameObject.activeInHierarchy);
+                        //topPanel.gameObject.SetActive(cableTerminationPanel.gameObject.activeSelf);
+                        topPanel.gameObject.SetActive(true);
+
+                        bottomPanel.gameObject.SetActive(true);
+
+                        anchorPanel.gameObject.SetActive(false);
+                        roofPanel.gameObject.SetActive(false);
+                        segmentPanel.gameObject.SetActive(false);
+                        cameraShotPanel.gameObject.SetActive(false);
+                        shockAborberPanel.gameObject.SetActive(false);
+                        intermidatePanel.gameObject.SetActive(false);
+                        tensionerPanel.gameObject.SetActive(false);
+                        overRoofSystem.HideImagePanel();
+
+                        if (cableTerminationPanel.gameObject.activeSelf)
+                        {
+                            headingText.text = "Please Enter Cable Termination details";
+                        }
+
                     }
                     break;
                 default:
                     break;
             }
+
         }
 
         private void ResetButtonColor()
@@ -523,25 +998,7 @@ namespace AR2
             arButton.color = Color.white;
         }
 
-        public void IncreaseIntermidiate(int onSegment)
-        {
-            overRoofSystem.IncreaseIntermidiate(onSegment);
-            UpdateIntermidiateText();
-        }
-        public void DecreaseIntermidiate(int onSegment)
-        {
-            overRoofSystem.DecreaseIntermidiate(onSegment);
-            UpdateIntermidiateText();
-        }
-
-        void UpdateIntermidiateText()
-        {
-            for (int i = 0; i < intermidiateTexts.Length; i++)
-            {
-                intermidiateTexts[i].text = overRoofSystem.intermidateCounts[i].ToString();
-            }
-        }
-
+        
         public override void ShowUI()
         {
             // show ui based on current uiState
@@ -568,4 +1025,17 @@ namespace AR2
         }
         
     }
+}
+[System.Serializable]
+public enum UiState
+{
+    roof,
+    anchor,
+    segment,
+    intermidiate,
+    cameraShot,
+    AR,
+    shockAbsorber,
+    tensioner,
+    cableTermination
 }

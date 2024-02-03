@@ -34,6 +34,8 @@ public class UiManager : MonoBehaviour
     [SerializeField] private UnityEngine.UI.Extensions.Examples.ElementScrollView variationsScrollView;
     [SerializeField] private UnityEngine.UI.Extensions.Examples.ElementScrollView colorsScrollView;
 
+    public ScreenShotHandler screenShotHandler;
+
     private void Awake()
     {
         arPanel.gameObject.SetActive(false);
@@ -78,7 +80,7 @@ public class UiManager : MonoBehaviour
     {
         if (canVibrate)
         {
-            Handheld.Vibrate();
+            //Handheld.Vibrate();
         }
 
         if (canPlaySound)
@@ -250,6 +252,29 @@ public class UiManager : MonoBehaviour
         colorsScrollView.gameObject.SetActive(false);
         
         arPanel.gameObject.SetActive(true);
+    }
+
+    public void TakeScreenShot()
+    {
+        HideUi();
+        TakingScreenShot();
+        Invoke(nameof(UnHide), 0.025f);
+    }
+
+    void TakingScreenShot()
+    {
+        screenShotHandler.TakeScreenShotwithDelay(0f);
+    }
+    void HideUi()
+    {
+        arPanel.gameObject.SetActive(false);
+
+    }
+
+    void UnHide()
+    {
+        arPanel.gameObject.SetActive(true);
+
     }
 
     public void CloseAR()

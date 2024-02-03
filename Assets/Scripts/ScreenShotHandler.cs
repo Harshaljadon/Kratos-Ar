@@ -48,9 +48,9 @@ public class ScreenShotHandler : MonoBehaviour
         PlayerPrefs.SetInt("scCounter", ssCounter);
 
         // Save the screenshot to Gallery/Photos
-        NativeGallery.Permission permission = NativeGallery.SaveImageToGallery(ss, "HarnessAR", name, (success, path) => Debug.Log("Media save result: " + success + " " + path));
+        //NativeGallery.Permission permission = NativeGallery.SaveImageToGallery(ss, "HarnessAR", name, (success, path) => Debug.Log("Media save result: " + success + " " + path));
 
-        Debug.Log("Permission result: " + permission);
+        //Debug.Log("Permission result: " + permission);
 
         // To avoid memory leaks
         Destroy(ss);

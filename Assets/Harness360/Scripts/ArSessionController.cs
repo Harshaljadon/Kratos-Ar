@@ -50,7 +50,10 @@ public class ArSessionController : MonoBehaviour
 
     public void StopSession()
     {
+        if (session != null)
+        {
         Destroy(session.gameObject);
+        }
         dragRotator.canRotate = true;
         
         arSessionOrigin.transform.position = Vector3.zero;

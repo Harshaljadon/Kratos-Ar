@@ -7,6 +7,7 @@ using UnityEngine;
 [Serializable]
 public struct MaterialInfo
 {
+    public string name;
     public Material material;
     public Sprite sprite;
 }
@@ -15,6 +16,7 @@ public struct MaterialInfo
 public struct ColorVariationInfo
 {
     public Element.ElementType Type;
+    public Sprite icon;
     public List<MaterialInfo> AvaliableMatrials;
 }
 
@@ -53,6 +55,20 @@ public class HarnessTheme : MonoBehaviour
 
         return sp;
     }
+    public string GetNameForElemnt(Element.ElementType elementType, int i)
+    {
+        string sp = null;
+
+        foreach (var variation in allVariations)
+        {
+            if (variation.Type == elementType)
+            {
+                sp = variation.AvaliableMatrials[i].name;
+            }
+        }
+
+        return sp;
+    }
 
     public Material GetMaterialForElementAtIndex(Element.ElementType elementType, int index)
     {
@@ -68,4 +84,37 @@ public class HarnessTheme : MonoBehaviour
 
         return mat;
     }
+
+    public Sprite GetVariationIcon(Element.ElementType eeT)
+    {
+        Sprite sp = null;
+
+        foreach (var variation in allVariations)
+        {
+            if (variation.Type == eeT)
+            {
+                sp = variation.AvaliableMatrials[0].sprite;
+            }
+        }
+
+        return sp;
+    }
+
+    public string GetallVariationstypeName(int index)
+    {
+        var nameEnum = allVariations[index].Type.ToString();
+        return nameEnum;
+    }
+
+    public Sprite GetAllVariationTypeIcon(int index)
+    {
+        var icon = allVariations[index].icon;
+        return icon;
+    }
+
+    public Element.ElementType GetAllVariationTypeEnum(int index)
+    {
+        var enumMum = allVariations[index].Type;
+        return enumMum;
+}
 }

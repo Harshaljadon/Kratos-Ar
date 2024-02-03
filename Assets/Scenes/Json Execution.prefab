@@ -1,0 +1,170 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6043675672596756577
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5580245365353249661}
+  - component: {fileID: 74672380974331346}
+  m_Layer: 0
+  m_Name: ReadUrlJson
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5580245365353249661
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6043675672596756577}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 2.7527122, y: -1.1945156, z: -0.0021802783}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5897894492379134953}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &74672380974331346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6043675672596756577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb50c8df08ed547bc9beb2e7100904de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jsonApliTemplateRef:
+    ClientName: 
+    Module: 
+    AnchorProductCode: 
+    report_no: 
+    Corner: 0
+    CornerType: 
+    ShockAbQty: 0
+    ShockAbType: 
+    TensionerQTY: 0
+    TensionerCode: 
+    CTA: 
+    CTB: 
+    CTAQ: 0
+    CTBQ: 0
+    CarriageBody: 
+    Segment1Length: 0
+    Segment2Length: 0
+    Segment3Length: 0
+    S1Intermediate: 0
+    S2Intermediate: 0
+    S3Intermediate: 0
+    structure_type: 
+    total_length: 0
+  url: https://uatapi.arresto.in/api/client/250/ar/ec_report/1212/arjson?user_id=20
+  jsonText: 
+  gameLoader: {fileID: 6592880171251227353}
+--- !u!1 &8416780592319503025
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5897894492379134953}
+  - component: {fileID: 6592880171251227353}
+  m_Layer: 0
+  m_Name: Json Execution
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5897894492379134953
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8416780592319503025}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1.8459091, y: 0.06499994, z: 0.2795353}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 5580245365353249661}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6592880171251227353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8416780592319503025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 562101dec6ffe453eb809e369ce9d268, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wireRopeSystem: {fileID: 0}
+  ceillingWallFloorSystemUI: {fileID: 0}
+  jsonTextAsset: {fileID: 4900000, guid: a4bd88547fcfa40a8b7885f4e946406d, type: 3}
+  gameData:
+    gameObjects:
+    - LifeLineType: 
+      Position: 
+      Corner: 0
+      Segment1Length: 0
+      Segment2Length: 0
+      Segment3Length: 0
+  fileSelector: {fileID: 0}
+  anchorName:
+  - SA07G
+  - SA07I
+  - SA38A
+  - SA51A
+  - SA51AM
+  - SA51
+  - SA38
+  - SA45
+  - SA116AE
+  - SA87AE
+  - SA87AEM
+  tensionerName:
+  - PN4000TSL
+  - PN4000T
+  - PN7000T
+  cableTermination:
+  - PN4000CTSL
+  - PN4000CTS
+  - PN4000ACTB
+  - PN4000ACTS
+  lifeLineTypeName: []
+  instalPosName: []
+  currentAnchorIndex: 0
+  currentCornerNumber: 0
+  anchorSizename: 0
+  currecntS1Inter: 0
+  currecntS2Inter: 0
+  currecntS3Inter: 0
+  currentS1Length: 0
+  currentS2Length: 0
+  currentS3Length: 0
+  currenttensionerIndex: 0
+  currentShockAb: 2
+  currentCTA: 0
+  currentCTB: 0
+  ctaCodeIndex: 0
+  ctBCodeIndex: 0
+  currentRooflength: 0
+  currentRoofWeidth: 0

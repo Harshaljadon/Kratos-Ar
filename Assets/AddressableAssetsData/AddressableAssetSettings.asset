@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: AddressableAssetSettings
   m_EditorClassIdentifier: 
   m_DefaultGroup: 8153ec0821fd34e4ba10224d7336bb69
-  m_CachedHash:
+  m_currentHash:
     serializedVersion: 2
-    Hash: 00000000000000000000000000000000
+    Hash: c6b83d18c835e45f305e1245ae5686ec
   m_OptimizeCatalogSize: 1
   m_BuildRemoteCatalog: 1
   m_BundleLocalCatalog: 1
@@ -32,11 +32,14 @@ MonoBehaviour:
   m_ShaderBundleNaming: 0
   m_ShaderBundleCustomNaming: 
   m_MonoScriptBundleNaming: 0
+  m_CheckForContentUpdateRestrictionsOption: 0
   m_MonoScriptBundleCustomNaming: 
   m_RemoteCatalogBuildPath:
     m_Id: 0900455d14dad48d68b4845b1eb6eda2
   m_RemoteCatalogLoadPath:
     m_Id: 5b640e5c668404af481fe81e0e285abd
+  m_ContentStateBuildPathProfileVariableName: 
+  m_CustomContentStateBuildPath: 
   m_ContentStateBuildPath: 
   m_BuildAddressablesWithPlayerBuild: 0
   m_overridePlayerVersion: 
@@ -51,6 +54,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f6adc9320b60a470a9f4ab4f06dc030d, type: 2}
   - {fileID: 11400000, guid: 4d0eb5f3263e34ec4aa93adb2ad4c5c9, type: 2}
   - {fileID: 11400000, guid: f425560e639064c57814ec58d24034be, type: 2}
+  - {fileID: 11400000, guid: 15c57da778a844bc38794fb204c73cad, type: 2}
   - {fileID: 11400000, guid: e6835e0133aa14be58b3abb8a72225cf, type: 2}
   m_BuildSettings:
     m_CompileScriptsInVirtualMode: 0
@@ -138,11 +142,11 @@ MonoBehaviour:
           m_Key: HostingServiceUploadSpeed
         - m_AssemblyName: mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
           m_ClassName: System.String
-          m_Data: Library/com.unity.addressables/aa/Android/Android;ServerData/Android
+          m_Data: Library/com.unity.addressables/aa/Android/Android
           m_Key: ContentRoot
         - m_AssemblyName: mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
           m_ClassName: System.Boolean
-          m_Data: True
+          m_Data: False
           m_Key: IsEnabled
         - m_AssemblyName: mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
           m_ClassName: System.String
@@ -156,3 +160,4 @@ MonoBehaviour:
     m_NextInstanceId: 14
     m_RegisteredServiceTypeRefs:
     - UnityEditor.AddressableAssets.HostingServices.HttpHostingService, Unity.Addressables.Editor
+    m_PingTimeoutInMilliseconds: 5000

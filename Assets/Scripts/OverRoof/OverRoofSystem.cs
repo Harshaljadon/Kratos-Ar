@@ -2,47 +2,65 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
-using UnityEngine.ResourceManagement.AsyncOperations;
-
+//using UnityEngine.AddressableAssets;
+//using UnityEngine.ResourceManagement.AsyncOperations;
+using ModularBuildingsFramework;
 namespace AR2
 {    
-    public class OverRoofSystem : MonoBehaviour
+    public class OverRoofSystem : WireRopeSystem
     {
-        public Transform roof;
-        public float WorldScaleFactor = 1; // means items are 10 times smaller, 10cm == 1M
+        [Header("Component Ref")]
         public List<Anchor> pointAnchors = new List<Anchor>();
         public List<Anchor> circularAnchors = new List<Anchor>();
         public List<SegmentLine> segmentLines = new List<SegmentLine>();
+        public VisualizeSelectionComponent visualizeSelectionComponent;
+        [SerializeField]
+        RoofBuildingManager m_RoofBuildingManager;
+        [SerializeField]
+        OverRoofSystemUI m_OverRoofSystemUI;
 
+        [Header("Object ref")]
+        public Transform roof;
+        public Transform[] childcollection;
+        public List<GameObject> intermidiatePrefabs = new List<GameObject>();
+
+
+        [Header("status")]
+        public LifeLineComponent currentlifeLineComponent;
+
+        [Header("Feilds")]
+        //public int[] intermidateCounts = { 0, 0, 0 };
         public int RoofDemChangeDelta = 1;
-        public int segmentChangeDelta = 1;
-        public int corners { get; private set; } = 0;
-
+        public int intermidiatePrefabsLength = 0, segmentChangeDelta = 1;
+        [SerializeField] float roofSizeTune;
+        //public int corners { get; private set; } = 0;
         public int segment1Length { get; private set; } = 0;
         public int segment2Length { get; private set; } = 0;
         public int segment3Length { get; private set; } = 0;
-
-        public List<GameObject> intermidiatePrefabs = new List<GameObject>();
-        [SerializeField]
-        List<AssetReference> intermidiatePrefabsAssetRef = new List<AssetReference>(5);
-
-        int segment1Limit = 0;
-        int segment2Limit = 0;
-        int intermidiatePrefabsLength = 0;
-        public float MinIntermidateGap { get; private set; } = 0.05f;
-        public int[] intermidateCounts = { 0, 0, 0 };
-
-        float changeScale = 0.0f;
-
-        int minValue = 5;
-        int maxValue = 20;
-
         public int RoofLength { get; private set; } = 5;
         public int RoofWidth { get; private set; } = 5;
-        
-        // public MeshRenderer roofPlane;
-        // private Texture2D loadedTexture;
+
+        int currectCaseShockAbsorber = 1, currentTensioner = 1, TensionerTypeId, previousCorner = 5, minValue = 5, maxValue = 20;
+        int  shockAborberYypeValue;
+        [SerializeField] int currentIndexComponent;
+        [SerializeField] int segment1Limit;
+        [SerializeField] int segment2Limit;
+
+        public float WorldScaleFactor = 1; // means items are 10 times smaller, 10cm == 1M
+
+        public float MinIntermidateGap { get; private set; } = 0.05f;
+
+        [SerializeField]
+        float changeScale = 0.0f;
+
+
+        public event Action setPointPos;
+
+
+        [SerializeField]
+        bool callOnce;
+
+
 
         private void Awake()
         {
@@ -57,39 +75,71 @@ namespace AR2
 
         private void Start()
         {
-            // roofPlane.gameObject.SetActive(false);
             
             DisableLifeLineItems();
             SetupAnchorPositions();
             SetSegmentLimits();
-            foreach (var item in intermidiatePrefabsAssetRef)
-            {
-                item.LoadAssetAsync<GameObject>().Completed += (op) =>
-                {
-                    if (((AsyncOperationHandle<GameObject>)op).Status == AsyncOperationStatus.Succeeded)
-                    {
-                        intermidiatePrefabs.Add(((AsyncOperationHandle<GameObject>)op).Result);
-                        //Addressables.Release(op);
-                    }
-                };
-            }
+            UpDateLineRendere();
+            m_OverRoofSystemUI = FindAnyObjectByType<OverRoofSystemUI>();
+
             intermidiatePrefabsLength = intermidiatePrefabs.Count;
+            m_RoofBuildingManager = FindFirstObjectByType<RoofBuildingManager>();
         }
 
-        private void OnDisable()
-        {
-            foreach (var item in intermidiatePrefabsAssetRef)
-            {
-                item.ReleaseAsset();
-            }
-        }
+
+
+
 
         private void Update()
         {
+            if (previousCorner != corners)
+            {
+                previousCorner = corners;
             SetupLifeLine();
+            }
+
+            if (m_OverRoofSystemUI.isArON)
+            {
+                OnArModeAnchorCornerStartEndPostStablePosUpdate();
+                UpDateLineRendere();
+
+                SetupLifeLine();
+                callOnce = false;
+                return;
+            }
+
+            if (!callOnce)
+            {
+                callOnce = true;
+                UpDateLineRendere();
+            }
+
         }
 
+        void UpDateLineRendere()
+        {
+            foreach (var lifeLine in segmentLines)
+            {
+                lifeLine.UpdateLifeline();
+            }
+        }
+
+
+
         // called from Ui class
+        #region RoofSize
+
+        // access via button in canvas which is segment button increate decrease length
+        public void UpdateBuildingroof()
+        {
+            //Debug.Log("enter");
+            m_RoofBuildingManager.buildingSize[0].Length = segment2Length * roofSizeTune;
+            var size = MathF.Max(segment1Length, segment3Length);
+            m_RoofBuildingManager.buildingSize[0].Depth = size * roofSizeTune;
+            m_RoofBuildingManager.IsDraftDirty = true;
+        }
+
+        #region old Roof Update
         public void IncreseRoofLength()
         {
             if (RoofLength < maxValue)
@@ -137,28 +187,15 @@ namespace AR2
             roof.localScale = new Vector3(roof.localScale.x, roof.localScale.y, roof.localScale.z + scale);
             SetSegmentLimits();
         }
+        #endregion
 
+        #endregion
 
-        public void SetSegmentLimits()
+        #region setSegment
+        void SetSegmentLimits()
         {
             segment1Limit = RoofLength * 2;
             segment2Limit = RoofWidth * 2;
-        }
-
-        public void SetCorners(int change)
-        {
-            corners += change;
-
-            if (corners < 0)
-            {
-                corners = 0;
-            }
-            else if (corners > 2)
-            {
-                corners = 2;
-            }
-
-            SetupAnchorPositions();
         }
 
         /// <summary>
@@ -168,6 +205,7 @@ namespace AR2
         /// <param name="sign">if sign is positive add, otherwise reduce</param>
         public void ApplySegmentChange(int SegNumber, int sign)
         {
+            UpDateLineRendere();
             switch (SegNumber)
             {
                 case 0:
@@ -215,18 +253,170 @@ namespace AR2
                 default:
                     break;
             }
+            //UpdateBuildingroof();
+            SetupAnchorPositions();
+        }
+
+        #endregion
+
+        public void SetCorners(int change)
+        {
+            corners += change;
+
+            if (corners < 0)
+            {
+                corners = 0;
+            }
+            else if (corners > 2)
+            {
+                corners = 2;
+            }
+
+            foreach (var item in pointAnchors)
+            {
+                item.CornerCout = (byte)corners;
+            }
 
             SetupAnchorPositions();
         }
 
-        internal int GetAchorIndex()
+
+        #region tensioner
+        public void TensionerQuantityUpdate(int caseValueTensinerQuantity = 1)
         {
-            // get index from any anchor
-            return pointAnchors[0].currentVariation;
+  
+            currentTensioner = caseValueTensinerQuantity;
+            pointAnchors[0].SetTensiner(true, (byte)TensionerTypeId);
+            switch (currentTensioner)
+            {
+                // one tensiner
+                case 1:
+                    {
+                        pointAnchors[1].SetTensiner(false, (byte)TensionerTypeId);
+                    }
+                    break;
+                    // two tensiner
+                case 2:
+                    {
+                        //pointAnchors[0].SetTensiner(true, (byte)TensionerTypeId);
+                        pointAnchors[1].SetTensiner(true, (byte)TensionerTypeId);
+                    }
+                    break;
+            }
         }
 
-        internal void SetAnchor(bool next)
+        public void TensionerTypeUpdate(int typeId)
         {
+            currentlifeLineComponent = LifeLineComponent.tensioner;
+
+            TensionerTypeId = typeId;
+            visualizeSelectionComponent.ShowComponent(TensionerTypeId, currentlifeLineComponent);
+            if (TensionerTypeId == 2)
+            {
+                pointAnchors[0].SetTensiner(true, (byte)TensionerTypeId);
+                pointAnchors[1].SetTensiner(false, (byte)TensionerTypeId);
+
+                return;
+            }
+            TensionerQuantityUpdate(currentTensioner);
+
+
+        }
+
+        void UpdateTensionerEnterPointSegment()
+        {
+            //Debug.Log("check");
+            setPointPos?.Invoke();
+            SetupLifeLine();
+        }
+        #endregion
+
+
+
+        public void UpdateCableTermination(byte idIndex, byte pointAorB)
+        {
+            //var size = pointAnchors.Count;
+            switch (pointAorB)
+            {
+                case 0:
+                    pointAnchors[0].SetCableTermination(idIndex);
+                    currentlifeLineComponent = LifeLineComponent.CableTerminationA;
+                        visualizeSelectionComponent.ShowComponent(m_OverRoofSystemUI.CableTerminationIndexA, currentlifeLineComponent);
+
+                    break;
+                case 1:
+                    pointAnchors[1].SetCableTermination(idIndex);
+                    currentlifeLineComponent = LifeLineComponent.CableTerminationB;
+                        visualizeSelectionComponent.ShowComponent(m_OverRoofSystemUI.CableTerminationIndexB, currentlifeLineComponent);
+
+                    break;
+            }
+
+            //ShowComponent();
+        }
+
+        #region shockAbsorber
+        public void OnOffShoockAbsorber(int caseValue = 1)
+        {
+
+            currectCaseShockAbsorber = caseValue;
+
+            switch (currectCaseShockAbsorber)
+            {
+                case 0:
+                    for (int i = 0; i < 2; i++)
+                    {
+                        pointAnchors[i].SetShockAbsorber(false,(byte)shockAborberYypeValue);
+                    }
+                    break;
+                case 1:
+                    pointAnchors[0].SetShockAbsorber(true, (byte)shockAborberYypeValue);
+                    pointAnchors[1].SetShockAbsorber(false, (byte)shockAborberYypeValue);
+
+                    break;
+                case 2:
+                    pointAnchors[0].SetShockAbsorber(true, (byte)shockAborberYypeValue);
+                    pointAnchors[1].SetShockAbsorber(true, (byte)shockAborberYypeValue);
+                    break;
+            }
+            UpdateTensionerEnterPointSegment();
+        }
+
+        public void ShockAborberType(int typeValue)
+        {
+            shockAborberYypeValue = typeValue;
+            //OnOffShoockAbsorber(currectCaseShockAbsorber);
+
+            #region notrequired but latter
+            //switch (currectCaseShockAbsorber)
+            //{
+            //    case 0:
+            //        for (int i = 0; i < 2; i++)
+            //        {
+            //            pointAnchors[i].SetShockAbsorber(false, (byte)shockAborberYypeValue);
+            //        }
+            //        break;
+            //    case 1:
+            //        pointAnchors[0].SetShockAbsorber(true, (byte)shockAborberYypeValue);
+            //        pointAnchors[1].SetShockAbsorber(false, (byte)shockAborberYypeValue);
+
+            //        break;
+            //    case 2:
+            //        pointAnchors[0].SetShockAbsorber(true, (byte)shockAborberYypeValue);
+            //        pointAnchors[1].SetShockAbsorber(true, (byte)shockAborberYypeValue);
+            //        break;
+            //}
+            #endregion
+        }
+
+        #endregion
+
+        #region Anchor
+        public void SetAnchor(bool next)
+        {
+            //pointAnchors[0].AdjustOrientation();
+            //pointAnchors[1].AdjustOrientation();
+            currentlifeLineComponent = LifeLineComponent.anchor;
             foreach (var anchor in pointAnchors)
             {
                 anchor.SetVariation(next);
@@ -239,13 +429,115 @@ namespace AR2
 
             foreach (var segmentLine in segmentLines)
             {
-                if (intermidiatePrefabsLength > pointAnchors[0].currentVariation)
-                {
 
                 segmentLine.UpdateIntermidiatePrefab(intermidiatePrefabs[pointAnchors[0].currentVariation]);
+                //if (intermidiatePrefabsLength >= pointAnchors[0].currentVariation)
+                //{
+                //}
+            }
+
+            UpdateIntermediate();
+            visualizeSelectionComponent.ShowComponent(m_OverRoofSystemUI.AnchorIndex, currentlifeLineComponent);
+            //Invoke(nameof(ShowComponent), .2f);
+        }
+
+        internal int GetAchorIndex()
+        {
+            // get index from any anchor
+            SetupLifeLine();
+
+            return pointAnchors[0].currentVariation;
+        }
+
+        #endregion
+
+        #region Intermediate
+        private void RefreashIntermidiatePos()
+        {
+            if (m_OverRoofSystemUI.isArON)
+            {
+                for (int i = 0; i < 3; i++)
+                {
+                    segmentLines[i].ArModeIntermediatePos(intermidateCounts[i]);
                 }
+                return;
+            }
+            for (int i = 0; i < 3; i++)
+            {
+                segmentLines[i].UpdateIntermidates(intermidateCounts[i]);
             }
         }
+
+        public void IncreaseIntermidiate(int segmentNum)
+        {
+            int _segLenth;
+
+            if (segmentNum == 0)
+            {
+                _segLenth = segment1Length;
+            }
+            else if (segmentNum == 1)
+            {
+                _segLenth = segment2Length;
+            }
+            else
+            {
+                _segLenth = segment3Length;
+            }
+
+            int maxIntermidiateCount = (int)((_segLenth - MinIntermidateGap));
+
+
+            // (_segLenth - MinIntermidateGap * 2)  leaving some are on both sides 
+
+            if (intermidateCounts[segmentNum] < maxIntermidiateCount)
+            {
+                //Debug.Log("passed");
+                intermidateCounts[segmentNum] = intermidateCounts[segmentNum] + 1;
+
+                segmentLines[segmentNum].UpdateIntermidates(intermidateCounts[segmentNum]);
+
+            }
+        }
+
+        void UpdateIntermediate()
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                //intermidateCounts[i] = intermidateCounts[i] + 1;
+
+                // (_segLenth - MinIntermidateGap * 2)  leaving some are on both sides 
+                segmentLines[i].UpdateIntermidates(intermidateCounts[i]);
+            }
+        }
+
+        public void DecreaseIntermidiate(int segmentNum)
+        {
+            int _segLenth;
+
+            if (intermidateCounts[segmentNum] > 0)
+            {
+                intermidateCounts[segmentNum] = intermidateCounts[segmentNum] - 1;
+
+                if (segmentNum == 0)
+                {
+                    _segLenth = segment1Length;
+                }
+                else if (segmentNum == 1)
+                {
+                    _segLenth = segment2Length;
+                }
+                else
+                {
+                    _segLenth = segment3Length;
+                }
+
+
+                segmentLines[segmentNum].UpdateIntermidates(intermidateCounts[segmentNum]);
+            }
+        }
+        #endregion
+
 
         public void DisableLifeLineItems()
         {
@@ -265,7 +557,55 @@ namespace AR2
             }
         }
 
-        void SetupLifeLine()
+
+        void OnArModeAnchorCornerStartEndPostStablePosUpdate()
+        {
+            switch (corners)
+            {
+                case 0:
+                    {
+                        segmentLines[0].startPos.position = pointAnchors[0].endPoint.position;
+                        segmentLines[0].endPos.position = pointAnchors[1].startPoint.position;
+                    }
+                    break;
+                case 1:
+                    {
+
+
+                        segmentLines[0].startPos.position = pointAnchors[0].startPoint.position;
+                        //segmentLines[0].endPos.position = circularAnchors[0].startPoint.position;
+                        segmentLines[0].endPos.position = circularAnchors[0].variationMeshes[circularAnchors[0].currentVariation].GetComponent<CircularAnchorEnterExitPoint>().startPoint.position;
+
+                        //segmentLines[1].startPos.position = circularAnchors[0].endPoint.position;
+                        segmentLines[1].startPos.position = circularAnchors[0].variationMeshes[circularAnchors[0].currentVariation].GetComponent<CircularAnchorEnterExitPoint>().exitPoint.position;
+                        segmentLines[1].endPos.position = pointAnchors[1].endPoint.position;
+                    }
+                    break;
+                case 2:
+                    {
+
+
+                        segmentLines[0].startPos.position = pointAnchors[0].startPoint.position;
+                        //segmentLines[0].endPos.position = circularAnchors[0].startPoint.position;
+                        segmentLines[0].endPos.position = circularAnchors[0].variationMeshes[circularAnchors[0].currentVariation].GetComponent<CircularAnchorEnterExitPoint>().startPoint.position;
+
+                        //segmentLines[1].startPos.position = circularAnchors[0].endPoint.position;
+                        segmentLines[1].startPos.position = circularAnchors[0].variationMeshes[circularAnchors[0].currentVariation].GetComponent<CircularAnchorEnterExitPoint>().exitPoint.position;
+                        //segmentLines[1].endPos.position = circularAnchors[1].startPoint.position;
+                        segmentLines[1].endPos.position = circularAnchors[1].variationMeshes[circularAnchors[1].currentVariation].GetComponent<CircularAnchorEnterExitPoint>().startPoint.position;
+
+                        //segmentLines[2].startPos.position = circularAnchors[1].endPoint.position;
+                        segmentLines[2].startPos.position = circularAnchors[1].variationMeshes[circularAnchors[1].currentVariation].GetComponent<CircularAnchorEnterExitPoint>().exitPoint.position;
+                        segmentLines[2].endPos.position = pointAnchors[1].endPoint.position;
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+
+
+        public void SetupLifeLine()
         {
             switch (corners)
             {
@@ -299,9 +639,11 @@ namespace AR2
                         segmentLines[2].gameObject.SetActive(false);
 
                         segmentLines[0].startPos.position = pointAnchors[0].startPoint.position;
-                        segmentLines[0].endPos.position = circularAnchors[0].startPoint.position;
+                        //segmentLines[0].endPos.position = circularAnchors[0].startPoint.position;
+                        segmentLines[0].endPos.position = circularAnchors[0].variationMeshes[circularAnchors[0].currentVariation].GetComponent<CircularAnchorEnterExitPoint>().startPoint.position;
 
-                        segmentLines[1].startPos.position = circularAnchors[0].endPoint.position;
+                        //segmentLines[1].startPos.position = circularAnchors[0].endPoint.position;
+                        segmentLines[1].startPos.position = circularAnchors[0].variationMeshes[circularAnchors[0].currentVariation].GetComponent<CircularAnchorEnterExitPoint>().exitPoint.position;
                         segmentLines[1].endPos.position = pointAnchors[1].endPoint.position;
                     }
                     break;
@@ -318,12 +660,16 @@ namespace AR2
                         segmentLines[2].gameObject.SetActive(true);
 
                         segmentLines[0].startPos.position = pointAnchors[0].startPoint.position;
-                        segmentLines[0].endPos.position = circularAnchors[0].startPoint.position;
+                        //segmentLines[0].endPos.position = circularAnchors[0].startPoint.position;
+                        segmentLines[0].endPos.position = circularAnchors[0].variationMeshes[circularAnchors[0].currentVariation].GetComponent<CircularAnchorEnterExitPoint>().startPoint.position;
 
-                        segmentLines[1].startPos.position = circularAnchors[0].endPoint.position;
-                        segmentLines[1].endPos.position = circularAnchors[1].startPoint.position;
+                        //segmentLines[1].startPos.position = circularAnchors[0].endPoint.position;
+                        segmentLines[1].startPos.position = circularAnchors[0].variationMeshes[circularAnchors[0].currentVariation].GetComponent<CircularAnchorEnterExitPoint>().exitPoint.position;
+                        //segmentLines[1].endPos.position = circularAnchors[1].startPoint.position;
+                        segmentLines[1].endPos.position = circularAnchors[1].variationMeshes[circularAnchors[1].currentVariation].GetComponent<CircularAnchorEnterExitPoint>().startPoint.position;
 
-                        segmentLines[2].startPos.position = circularAnchors[1].endPoint.position;
+                        //segmentLines[2].startPos.position = circularAnchors[1].endPoint.position;
+                        segmentLines[2].startPos.position = circularAnchors[1].variationMeshes[circularAnchors[1].currentVariation].GetComponent<CircularAnchorEnterExitPoint>().exitPoint.position;
                         segmentLines[2].endPos.position = pointAnchors[1].endPoint.position;
                     }
                     break;
@@ -331,10 +677,7 @@ namespace AR2
                     break;
             }
 
-            foreach (var lifeLine in segmentLines)
-            {
-                lifeLine.UpdateLifeline();
-            }
+
 
             RefreashIntermidiatePos();
         }
@@ -399,71 +742,15 @@ namespace AR2
                 default:
                     break;
             }
+
+
             SetupLifeLine();
         }
 
 
-        private void RefreashIntermidiatePos()
-        {
-            for (int i = 0; i < 3; i++)
-            {
-                segmentLines[i].UpdateIntermidates(intermidateCounts[i]);
-            }
-        }
 
-        public void IncreaseIntermidiate(int segmentNum)
-        {
-            int _segLenth;
 
-            if (segmentNum == 0)
-            {
-                _segLenth = segment1Length;
-            }
-            else if (segmentNum == 1)
-            {
-                _segLenth = segment2Length;
-            }
-            else
-            {
-                _segLenth = segment3Length;
-            }
-
-            int maxIntermidiateCount = (int)((_segLenth - MinIntermidateGap));
-
-            if(intermidateCounts[segmentNum] < maxIntermidiateCount)
-            {
-                intermidateCounts[segmentNum] = intermidateCounts[segmentNum] + 1;
-                
-                // (_segLenth - MinIntermidateGap * 2)  leaving some are on both sides 
-                segmentLines[segmentNum].UpdateIntermidates(intermidateCounts[segmentNum]);
-            }
-        }
-
-        public void DecreaseIntermidiate(int segmentNum)
-        {
-            int _segLenth;
-
-            if (intermidateCounts[segmentNum] > 0)
-            {
-                intermidateCounts[segmentNum] = intermidateCounts[segmentNum] - 1;
-
-                if (segmentNum == 0)
-                {
-                    _segLenth = segment1Length;
-                }
-                else if (segmentNum == 1)
-                {
-                    _segLenth = segment2Length;
-                }
-                else
-                {
-                    _segLenth = segment3Length;
-                }
-
-                
-                segmentLines[segmentNum].UpdateIntermidates(intermidateCounts[segmentNum]);
-            }
-        }
+        #region image later
 
         public void HideImagePanel()
         {
@@ -495,5 +782,13 @@ namespace AR2
             // }, "Select a image", "image/*" );
 
         }
+
+        public void make()
+        {
+            Debug.Log("testing");
+            //throw new NotImplementedException();
+        }
+        #endregion
     }
 }
+

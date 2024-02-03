@@ -18,6 +18,11 @@ namespace AR2
         {
             InfoText.SetActive(addInfotext);
         }
+
+        public virtual void UiUpdatePanel()
+        {
+
+        }
     }
 
 }

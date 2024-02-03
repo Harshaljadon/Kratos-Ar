@@ -15,14 +15,30 @@ MonoBehaviour:
   m_GroupName: Duplicate Asset Isolation
   m_Data:
     m_SerializedData: []
-  m_GUID: ef002adae9dc74335822a1dcd636f2f1
+  m_GUID: 658788e120479446191c616a940cb816
   m_SerializeEntries:
-  - m_GUID: 933532a4fcc9baf4fa0491de14d08ed7
-    m_Address: Packages/com.unity.render-pipelines.universal/Shaders/Lit.shader
-    m_ReadOnly: 0
-    m_SerializedLabels: []
   - m_GUID: 05a8dd24448777244b9428bdfce144a1
     m_Address: Assets/Yonky-Black-demoFFP SDF.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: e92519fdfb66ce340bf78df95da36a60
+    m_Address: Assets/Yonky-Black-demoFFP.ttf
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: bc1ede39bf3643ee8e493720e4259791
+    m_Address: Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile Masking.shader
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: e3265ab4bf004d28a9537516768c1c75
+    m_Address: Assets/TextMesh Pro/Fonts/LiberationSans.ttf
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: fe393ace9b354375a9cb14cdbbc28be4
+    m_Address: Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile.shader
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 31321ba15b8f8eb4c954353edc038b1d
+    m_Address: Packages/com.unity.render-pipelines.universal/Runtime/Materials/Lit.mat
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 94372b37536c348c69ca263f84cda3f8
@@ -50,25 +66,8 @@ MonoBehaviour:
     m_Address: Assets/Sprites/UI/Shutter.png
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 28f7ed6579de76643a2ef16506e6ef5b
-    m_Address: Assets/Sprites/UI/ConfinedSpace/Pods/Tripod.jpg
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 8e535ff9afa64244cadc122e7f548202
-    m_Address: Assets/Sprites/sl_112520_38300_20 - Copy(2).png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 0186ee3a1fa73b740b0da848c1208d9e
-    m_Address: Assets/Sprites/UI/AR.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
   - m_GUID: 5f0e767aefaa06447836b5a2ff139f23
     m_Address: Assets/Sprites/UI/Back.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 361685eeac9f141b09b365c40e020b2a
-    m_Address: Assets/Quantum Tek/Quantum UI/Sprites/Buttons/White Round Outline
-      Button.png
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 7f988301d22a4406da0408106c75d212
@@ -91,20 +90,12 @@ MonoBehaviour:
     m_Address: Assets/Safety_Product_assets_FBX/Radhe/Worker/hand.png
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: bc1ede39bf3643ee8e493720e4259791
-    m_Address: Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile Masking.shader
-    m_ReadOnly: 0
-    m_SerializedLabels: []
   - m_GUID: f1a102ba123334cb0b3f763090591cde
     m_Address: Assets/Samples/AR-Foundation/Animation/FadeOffMoveDeviceAnimation.anim
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 22a59f2cf94774262843342bf93a18db
     m_Address: Assets/Samples/AR-Foundation/Animation/MoveDeviceAnimation.anim
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: e92519fdfb66ce340bf78df95da36a60
-    m_Address: Assets/Yonky-Black-demoFFP.ttf
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 595f9850155c9434682bd2502593b876
@@ -117,10 +108,6 @@ MonoBehaviour:
     m_SerializedLabels: []
   - m_GUID: d07ba9e01e35f47b09a6e6197e98092d
     m_Address: Assets/Samples/AR-Foundation/Animation/MoveDevice/movedevice_02.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 36e335017ad71d54fbb10842863188ae
-    m_Address: Packages/com.unity.render-pipelines.core/Runtime/FallbackShader.shader
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 7c02ec01e51dc40d3bb9a9dbdf991866
@@ -149,10 +136,6 @@ MonoBehaviour:
     m_SerializedLabels: []
   - m_GUID: def6a752e74e042cda44459509ca1204
     m_Address: Assets/Samples/AR-Foundation/Animation/MoveDevice/movedevice_19.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: e3265ab4bf004d28a9537516768c1c75
-    m_Address: Assets/TextMesh Pro/Fonts/LiberationSans.ttf
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 6f4c44c4b1c6a437eada93d3e465d8fc
@@ -283,10 +266,6 @@ MonoBehaviour:
     m_Address: Assets/Samples/AR-Foundation/Animation/TapToPlace/taptoplace_06.png
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: e6e9a19c3678ded42a3bc431ebef7dbd
-    m_Address: Packages/com.unity.render-pipelines.universal/Shaders/Utils/FallbackError.shader
-    m_ReadOnly: 0
-    m_SerializedLabels: []
   - m_GUID: 1ea51ccce04ab4c61a991e63869c5287
     m_Address: Assets/Samples/AR-Foundation/Animation/MoveDevice/movedevice_11.png
     m_ReadOnly: 0
@@ -359,10 +338,6 @@ MonoBehaviour:
     m_Address: Assets/Samples/AR-Foundation/Textures/FeaturePoint.png
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: fe393ace9b354375a9cb14cdbbc28be4
-    m_Address: Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile.shader
-    m_ReadOnly: 0
-    m_SerializedLabels: []
   - m_GUID: cf0c720f1ba9b47e293f4b9bcfb2ecb4
     m_Address: Assets/Samples/AR-Foundation/Textures/PlanePatternDot.png
     m_ReadOnly: 0
@@ -371,12 +346,12 @@ MonoBehaviour:
     m_Address: Assets/Samples/AR-Foundation/Shaders/FeatheredPlaneShader.shader
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: eb196a126b4d1b74aa5a3ff264bb3d6d
-    m_Address: Assets/Safety_Product_assets_FBX/Radhe/PN_Manga_02.FBX
+  - m_GUID: 933532a4fcc9baf4fa0491de14d08ed7
+    m_Address: Packages/com.unity.render-pipelines.universal/Shaders/Lit.shader
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 01bb4d823fa2dba46bafb5fd20ed5f85
-    m_Address: Assets/ARAssets/SM_Industry-shell.FBX
+  - m_GUID: eb196a126b4d1b74aa5a3ff264bb3d6d
+    m_Address: Assets/Safety_Product_assets_FBX/Radhe/PN_Manga_02.FBX
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 4dc2d0358ad484e438cee270f6d05b43
@@ -385,10 +360,6 @@ MonoBehaviour:
     m_SerializedLabels: []
   - m_GUID: 6c9912a64ca538b4ca62981112034251
     m_Address: Assets/Safety_Product_assets_FBX/Radhe/Materials/M-Gold.mat
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 05fab6271e55947adba28ac2360697be
-    m_Address: Assets/Meshes/glb/PN 4000 (15).glb
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 0ffaa0b7117ba8c47a9d05ae701d4b4d
@@ -407,12 +378,8 @@ MonoBehaviour:
     m_Address: Assets/Materials/Chrome.mat
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: a63778adc46ec5f4ca18f296c0cf64e5
-    m_Address: Assets/ARAssets/M_Shutter 1.mat
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 6edc52fd3a37c68488fe3e3b906057b1
-    m_Address: Assets/ARAssets/M_Shutter.mat
+  - m_GUID: 8a02298dcff3f49ff83ce686fa19ff6c
+    m_Address: Assets/Meshes/glb/PN 4000 (16)Compressed.glb
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 170f7e0efae887047af939d0ccf105fd
@@ -447,6 +414,10 @@ MonoBehaviour:
     m_Address: Assets/Sprites/UI/Gallery.png
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 0186ee3a1fa73b740b0da848c1208d9e
+    m_Address: Assets/Sprites/UI/AR.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   - m_GUID: 2926f8bb82fb11a449c25255052fbe40
     m_Address: Assets/Sprites/UI/Save.png
     m_ReadOnly: 0
@@ -479,8 +450,16 @@ MonoBehaviour:
     m_Address: Assets/Meshes/Materials/asphault_m.tga
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 36e335017ad71d54fbb10842863188ae
+    m_Address: Packages/com.unity.render-pipelines.core/Runtime/FallbackShader.shader
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   - m_GUID: 3f2672ab90096497b9d94da7ea0c6683
     m_Address: Assets/Samples/AR-Foundation/Animation/AR Feathered Plane Fade.controller
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: e6e9a19c3678ded42a3bc431ebef7dbd
+    m_Address: Packages/com.unity.render-pipelines.universal/Shaders/Utils/FallbackError.shader
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: f5e146e0a88114d58b942eb7e2579a35
@@ -489,22 +468,6 @@ MonoBehaviour:
     m_SerializedLabels: []
   - m_GUID: 8cd83a059647c4eaabf9cc2ca368e13e
     m_Address: Assets/Samples/AR-Foundation/Animation/PlaneFadeOff.anim
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 88801070f61787f4299e5a7934f1a548
-    m_Address: Assets/Materials/White.mat
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: c3f6f0359aaafea48bc2deb821332b86
-    m_Address: Assets/Safety_Product_assets_FBX/SM_SA57.FBX
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: e48f68483cf1c4dffa772b59ffd627fb
-    m_Address: Assets/Meshes/SA25/SA25.fbx
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: da63938e50de8ed4b90000a63326eb15
-    m_Address: Assets/Safety_Product_assets_FBX/Overhead/L_Piller.fbx
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: b871b5729a748254680ed0c7aae2d56f
@@ -543,12 +506,17 @@ MonoBehaviour:
     m_Address: Assets/Meshes/SA45/PN_45_saperated.fbx
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 730604b5323b59641a7b9e3159d001f6
-    m_Address: Assets/Safety_Product_assets_FBX/SM_SA07H.FBX
+  - m_GUID: 361685eeac9f141b09b365c40e020b2a
+    m_Address: Assets/Quantum Tek/Quantum UI/Sprites/Buttons/White Round Outline
+      Button.png
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 37d1b46424644af4ca8fe7f011e29798
-    m_Address: Assets/Safety_Product_assets_FBX/winch_801.jpg
+  - m_GUID: 31109ff4e70d141018ad17620c1728db
+    m_Address: Assets/Quantum Tek/Quantum UI/Sprites/Icons/White Info.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 8e535ff9afa64244cadc122e7f548202
+    m_Address: Assets/Sprites/sl_112520_38300_20 - Copy(2).png
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0
