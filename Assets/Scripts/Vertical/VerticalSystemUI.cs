@@ -20,7 +20,6 @@ namespace AR2
         private CanvasGroup canvasGroup;
         [SerializeField] TowerAluRailManager towerAluRailManager;
 
-
         [Space(2)]
         [Header("feilds")]
         #region vector
@@ -559,7 +558,7 @@ namespace AR2
         void OnAluRaiButtonPressed()
         {
             currentLifeLine = LifeLineType.Alu_Rail;
-
+            cableTerminationButtonPanel.gameObject.SetActive(false);
         }
 
         // apear button for wire rope

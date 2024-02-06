@@ -85,11 +85,7 @@ public class MobilemaxCamera : MonoBehaviour
     {
         if (!arMode)
         {
-//#if !UNITY_ANDROID || !UNITY_IOS
-//            zoomInput = Input.GetAxisRaw("Mouse ScrollWheel");
-//            HandleZoomInput(zoomInput);
-//#endif
-//#if UNITY_ANDROID || UNITY_IOS
+
 
             if (Input.touchCount == 2 )
             {

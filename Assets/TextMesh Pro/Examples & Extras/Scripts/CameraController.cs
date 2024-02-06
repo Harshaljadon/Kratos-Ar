@@ -60,6 +60,8 @@ namespace TMPro.Examples
             if (Application.platform == RuntimePlatform.IPhonePlayer || Application.platform == RuntimePlatform.Android)
                 Input.simulateMouseWithTouches = false;
 
+            //Debug.Log(Input.simulateMouseWithTouches);
+
             cameraTransform = transform;
             previousSmoothing = MovementSmoothing;
         }
@@ -132,8 +134,9 @@ namespace TMPro.Examples
 
             float touchCount = Input.touchCount;
 
-            if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift) || touchCount > 0)
-            {
+            //if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift) || touchCount > 0)
+            //{
+            //}
                 mouseWheel *= 10;
 
                 if (Input.GetKeyDown(KeyCode.I))
@@ -149,10 +152,11 @@ namespace TMPro.Examples
                 // Check for right mouse button to change camera follow and elevation angle
                 if (Input.GetMouseButton(1))
                 {
-                    mouseY = Input.GetAxis("Mouse Y");
+                //Debug.Log("left mouse");
+                mouseY = Input.GetAxis("Mouse Y");
                     mouseX = Input.GetAxis("Mouse X");
-
-                    if (mouseY > 0.01f || mouseY < -0.01f)
+                MovementSmoothing = true;
+                if (mouseY > 0.01f || mouseY < -0.01f)
                     {
                         ElevationAngle -= mouseY * MoveSensitivity;
                         // Limit Elevation angle between min & max values.
@@ -196,8 +200,9 @@ namespace TMPro.Examples
                 }
 
                 // Check for left mouse button to select a new CameraTarget or to reset Follow position
-                if (Input.GetMouseButton(0))
+                if (Input.GetMouseButton(2))
                 {
+                //Debug.Log("right mouse");
                     Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                     RaycastHit hit;
 
@@ -205,13 +210,16 @@ namespace TMPro.Examples
                     {
                         if (hit.transform == CameraTarget)
                         {
-                            // Reset Follow Position
-                            OrbitalAngle = 0;
-                        }
-                        else
+                        // Reset Follow Position
+                        OrbitalAngle = 180;
+                        //CameraTarget = hit.transform;
+                        //MovementSmoothing = previousSmoothing;
+
+                    }
+                    else
                         {
                             CameraTarget = hit.transform;
-                            OrbitalAngle = 0;
+                            OrbitalAngle = 180;
                             MovementSmoothing = previousSmoothing;
                         }
 
@@ -219,9 +227,11 @@ namespace TMPro.Examples
                 }
 
 
-                if (Input.GetMouseButton(2))
+                if (Input.GetMouseButton(0))
                 {
-                    if (dummyTarget == null)
+                //Debug.Log("center mouse");
+
+                if (dummyTarget == null)
                     {
                         // We need a Dummy Target to anchor the Camera
                         dummyTarget = new GameObject("Camera Target").transform;
@@ -230,7 +240,7 @@ namespace TMPro.Examples
                         CameraTarget = dummyTarget;
                         previousSmoothing = MovementSmoothing;
                         MovementSmoothing = false;
-                    }
+                }
                     else if (dummyTarget != CameraTarget)
                     {
                         // Move DummyTarget to CameraTarget
@@ -239,10 +249,11 @@ namespace TMPro.Examples
                         CameraTarget = dummyTarget;
                         previousSmoothing = MovementSmoothing;
                         MovementSmoothing = false;
-                    }
+                }
 
+                MovementSmoothing = false;
 
-                    mouseY = Input.GetAxis("Mouse Y");
+                mouseY = Input.GetAxis("Mouse Y");
                     mouseX = Input.GetAxis("Mouse X");
 
                     moveVector = cameraTransform.TransformDirection(mouseX, mouseY, 0);
@@ -251,7 +262,7 @@ namespace TMPro.Examples
 
                 }
 
-            }
+            
 
             // Check Pinching to Zoom in - out on Mobile device
             if (touchCount == 2)

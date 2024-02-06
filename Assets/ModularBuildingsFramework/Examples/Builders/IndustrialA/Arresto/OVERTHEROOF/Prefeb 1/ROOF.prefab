@@ -150,7 +150,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 953324bc5ad3dc24b87f53074f3e2d73, type: 2}
+  - {fileID: 2100000, guid: 1ee35e6862b8544f08505a9e7a9d9d23, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -498,6 +498,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 4c14c3ee41cf949c481405a1907af408,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1ee35e6862b8544f08505a9e7a9d9d23, type: 2}
+    - target: {fileID: -7511558181221131132, guid: 4c14c3ee41cf949c481405a1907af408,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1ee35e6862b8544f08505a9e7a9d9d23, type: 2}
     - target: {fileID: -7229685644505881703, guid: 4c14c3ee41cf949c481405a1907af408,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -513,6 +523,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -752634975346237336, guid: 4c14c3ee41cf949c481405a1907af408,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1ee35e6862b8544f08505a9e7a9d9d23, type: 2}
     - target: {fileID: 919132149155446097, guid: 4c14c3ee41cf949c481405a1907af408,
         type: 3}
       propertyPath: m_Name
@@ -613,6 +628,11 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
+    - target: {fileID: 6368039397385116155, guid: 755be95cd07f541ffaa27e0527b9a177,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1ee35e6862b8544f08505a9e7a9d9d23, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -776,6 +796,11 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
+    - target: {fileID: -4060282276919854446, guid: bc660ee5c8bc642d19ca14f27805ed7f,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1ee35e6862b8544f08505a9e7a9d9d23, type: 2}
     - target: {fileID: -1349233584262040412, guid: bc660ee5c8bc642d19ca14f27805ed7f,
         type: 3}
       propertyPath: m_LocalScale.x
