@@ -11412,25 +11412,29 @@ MonoBehaviour:
   anchorIndex: 0
   nameIndex: 0
   cableTerminationName:
-  - PN4000(15)
-  - PN7000(03)
-  - PN4000(35)
-  - PN4000(30)
+  - FA6020500
+  - FA6020700
+  - FA2020098
+  - FA6020502
   anchorNameList:
   - SA 25(750)
-  - SA 25(500)
-  - SA 25(300)
-  - SA 22
+  - FA6021150D
+  - FA6021130D
+  - FA6020700
   - SA 56(750)
-  - SA 56(500)
-  - SA 56(300)
-  - SA 22
+  - FA6021150C
+  - FA6021130C
+  - FA6020800
   basePlateNameList:
-  - SA 22
-  - SA 23
+  - FA6020700
+  - FA6021300
   carriageBodyNameList:
-  - PN4000(08)
+  - FA6020601
   - AP016
+  tensionerNameList:
+  - FA6020300
+  - FA6020301
+  - FA6020302
 --- !u!225 &360594697
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -42331,7 +42335,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: PN4000(08)
+  m_text: FA6020601
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
   m_sharedMaterial: {fileID: 2164040, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
@@ -45367,7 +45371,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: PN 4000(03)
+  m_text: FA6020300
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
   m_sharedMaterial: {fileID: 2164040, guid: 5302535af1044152a457ed104f1f4b91, type: 2}

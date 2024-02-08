@@ -96,6 +96,7 @@ namespace AR2
         [SerializeField] List<string> anchorNameList;
         [SerializeField] List<string> basePlateNameList;
         [SerializeField] List<string> carriageBodyNameList;
+        [SerializeField] List<string> tensionerNameList;
         //public int AnchorIndex { get => anchorIndex; set { anchorIndex = value; ChangesInUiWhenAnchorCHange(); } }
         #endregion
 
@@ -444,7 +445,8 @@ namespace AR2
             }
             else if (vale == 1)
             {
-                shockAborberTypeText.text = "PN4000MULS";//Long Span Shock Absorber
+                //shockAborberTypeText.text = "PN4000MULS";//Long Span Shock Absorber
+                shockAborberTypeText.text = "FA6020200";//Long Span Shock Absorber
                 OverHeadSystem.ShockAborberType(1);
 
             }
@@ -489,7 +491,7 @@ namespace AR2
                     tensinerTypeCount = 2;
                     cableTerminationButtonPanel.gameObject.SetActive(true);
                     //tensionerTypeText.text = "W/o termination";
-                    tensionerTypeText.text = "PN 7000(05)";
+                    //tensionerTypeText.text = "PN 7000(05)";
                     cableTerminationCountPointA = 0;
                     cableTerminationCountPointB = 2;
                     tensionalPanelCount.gameObject.SetActive(false);
@@ -499,7 +501,7 @@ namespace AR2
                     tensionalPanelCount.gameObject.SetActive(true);
                     cableTerminationButtonPanel.gameObject.SetActive(false);
 
-                    tensionerTypeText.text = "PN 4000(03)SL";
+                    //tensionerTypeText.text = "PN 4000(03)SL";
                 }
                 //overRoofSystem.TensionerTypeUpdate(0);
             }
@@ -513,9 +515,10 @@ namespace AR2
                     tensinerTypeCount = 0;
 
                 }
-                tensionerTypeText.text = "PN 4000(03)";
+                //tensionerTypeText.text = "PN 4000(03)";
 
             }
+            tensionerTypeText.text = tensionerNameList[tensinerTypeCount];
             OverHeadSystem.TensionerTypeUpdate(tensinerTypeCount);
         }
 
@@ -532,7 +535,7 @@ namespace AR2
                 if (cableTerminationCountPointA >= 1)
                 {
                     cableTerminationCountPointA = 1;
-                    nameIndex = cableTerminationName.Count - 1;
+                    nameIndex = cableTerminationName.Count - 2;
                 }
             }
             else
@@ -541,7 +544,7 @@ namespace AR2
                 if (cableTerminationCountPointA <= 0)
                 {
                     cableTerminationCountPointA = 0;
-                    nameIndex = cableTerminationName.Count - 2;
+                    nameIndex = cableTerminationName.Count - 1;
                 }
 
             }

@@ -110,6 +110,7 @@ namespace AR2
    
         [SerializeField] List<string> CableTerminationName;
         [SerializeField] List<string> PostName;
+        [SerializeField] List<string> TensionerName;
         #endregion
 
         private void Awake()
@@ -330,7 +331,7 @@ namespace AR2
                 {
                     tensinerTypeCount = 2;
                     cableTerminationButtonPanel.gameObject.SetActive(true);
-                tensionerTypeText.text = "PN 7000(05)";
+                //tensionerTypeText.text = "PN 7000(05)";
                     cableTerminationCountPointA = 0;
                     cableTerminationCountPointB = 2;
                     tensionalPanelCount.gameObject.SetActive(false);
@@ -340,7 +341,7 @@ namespace AR2
                     tensionalPanelCount.gameObject.SetActive(true);
                     cableTerminationButtonPanel.gameObject.SetActive(false);
 
-                tensionerTypeText.text = "PN 4000(03) SL";
+                //tensionerTypeText.text = "PN 4000(03) SL";
                 }
                 //overRoofSystem.TensionerTypeUpdate(0);
             }
@@ -354,9 +355,10 @@ namespace AR2
                     tensinerTypeCount = 0;
 
                 }
-                tensionerTypeText.text = "PN 4000(03)";
+                //tensionerTypeText.text = "PN 4000(03)";
 
             }
+            tensionerTypeText.text = TensionerName[tensinerTypeCount];
             //Debug.Log(tensinerTypeCount);
                 overRoofSystem.TensionerTypeUpdate(tensinerTypeCount);
         }
@@ -391,7 +393,7 @@ namespace AR2
             }
             else
             {
-            cableTerminationpointA.text =   CableTerminationName[cableTerminationCountPointA +1] + " at Extremity 1";
+            cableTerminationpointA.text =   CableTerminationName[cableTerminationCountPointA +2] + " at Extremity 1";
 
             }
         }

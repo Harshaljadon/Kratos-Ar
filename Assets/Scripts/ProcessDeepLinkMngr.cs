@@ -42,6 +42,19 @@ public class ProcessDeepLinkMngr : MonoBehaviour
         }
     }
 
+    void Start()
+    {
+#if PLATFORM_STANDALONE_WIN
+        string[] args = System.Environment.GetCommandLineArgs();
+        if (args.Length > 1)
+        {
+            string deepLink = args[1];
+            // Parse and handle the deep link
+            Debug.Log("Deep link received: " + deepLink);
+        }
+#endif
+    }
+
     [ContextMenu("call")]
     public void TestingDeepLinking()
     {

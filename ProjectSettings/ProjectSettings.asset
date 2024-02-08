@@ -40,7 +40,7 @@ PlayerSettings:
     width: 1
     height: 1
   m_SplashScreenLogos:
-  - logo: {fileID: 21300000, guid: 03eedff8f81bfc848baba3f273b3f543, type: 3}
+  - logo: {fileID: 21300000, guid: 569e7401d4b6af64aad0066c7adb5879, type: 3}
     duration: 2
   m_VirtualRealitySplashScreen: {fileID: 0}
   m_HolographicTrackingLossScreen: {fileID: 0}
@@ -285,7 +285,7 @@ PlayerSettings:
   - m_BuildTarget: 
     m_Icons:
     - serializedVersion: 2
-      m_Icon: {fileID: 2800000, guid: 8ad4b2a657a5e0b498eeba751ed2a72f, type: 3}
+      m_Icon: {fileID: 2800000, guid: 6ec5faa5976b645c5b668a5ef2baea8e, type: 3}
       m_Width: 128
       m_Height: 128
       m_Kind: 0
@@ -933,7 +933,7 @@ PlayerSettings:
   embeddedLinuxEnableGamepadInput: 1
   hmiLogStartupTiming: 0
   hmiCpuConfiguration: 
-  apiCompatibilityLevel: 6
+  apiCompatibilityLevel: 3
   activeInputHandler: 2
   windowsGamepadBackendHint: 0
   cloudProjectId: 
