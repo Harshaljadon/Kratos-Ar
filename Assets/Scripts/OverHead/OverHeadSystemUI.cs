@@ -307,7 +307,7 @@ namespace AR2
         {
             OverHeadSystem.SetAnchor(true);
             AnchorIndex = OverHeadSystem.GetAchorIndex();
-            UpDateBasePlate();
+            //UpDateBasePlate();
             //UpdateAnchorName();
         }
 
@@ -315,7 +315,7 @@ namespace AR2
         {
             OverHeadSystem.SetAnchor(false);
             AnchorIndex = OverHeadSystem.GetAchorIndex();
-            UpDateBasePlate();
+            //UpDateBasePlate();
             //UpdateAnchorName();
         }
 
@@ -325,17 +325,18 @@ namespace AR2
         }
 
 
-        void UpDateBasePlate()
+        public void UpDateBasePlate(bool val)
         {
-            if ((AnchorIndex == anchorNameList.Count - 1 || AnchorIndex == anchorNameList.Count - 5) && OverHeadSystem.IntermidateCounts[0] > 0)
-            {
-                OnIntermediateElementPanel(true);
-            }
-            else
-            {
+            //if ((AnchorIndex == anchorNameList.Count - 1 || AnchorIndex == anchorNameList.Count - 5) && OverHeadSystem.IntermidateCounts[0] > 0)
+            //{
+            //    OnIntermediateElementPanel(true);
+            //}
+            //else
+            //{
 
-                OnIntermediateElementPanel(false);
-            }
+            //    OnIntermediateElementPanel(false);
+            //}
+                OnIntermediateElementPanel(val);
         }
         #endregion
 
@@ -345,14 +346,14 @@ namespace AR2
         {
             OverHeadSystem.IncreaseIntermidiate(onSegment);
             UpdateIntermidiateText();
-            UpDateBasePlate();
+            //UpDateBasePlate();
 
         }
         public override void DecreaseIntermidiate(int onSegment)
         {
             OverHeadSystem.DecreaseIntermidiate(onSegment);
             UpdateIntermidiateText();
-            UpDateBasePlate();
+            //UpDateBasePlate();
 
         }
 

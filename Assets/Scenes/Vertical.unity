@@ -4212,7 +4212,7 @@ MonoBehaviour:
   m_IgnoreLayout: 0
   m_MinWidth: -1
   m_MinHeight: -1
-  m_PreferredWidth: 0
+  m_PreferredWidth: 66.12396
   m_PreferredHeight: 76
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
@@ -7100,7 +7100,7 @@ MonoBehaviour:
   m_IgnoreLayout: 0
   m_MinWidth: -1
   m_MinHeight: -1
-  m_PreferredWidth: 595.5
+  m_PreferredWidth: 544.6
   m_PreferredHeight: 90.69
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
@@ -8860,14 +8860,12 @@ MonoBehaviour:
   aluNameList:
   - KS8000
   - KS9000
-  - PN 9000(01)
   lifeLineTypeNameList:
   - Wire Rope Vertical Life Line
   - Aluminam Rail Vertical Life Line
   ropeGrabNameList:
   - FA2020001
   - FA2020000
-  - PN 7500
   bracketNameList:
   - FA2020100
   - FA2020900
@@ -47158,7 +47156,7 @@ MonoBehaviour:
   m_IgnoreLayout: 0
   m_MinWidth: -1
   m_MinHeight: -1
-  m_PreferredWidth: 0
+  m_PreferredWidth: 66.12396
   m_PreferredHeight: 76
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
@@ -52605,8 +52603,7 @@ MonoBehaviour:
       lifeLineComponent: 8
       typeRef:
       - {fileID: 6508136076465200323, guid: 2fc76c0b26df74882b02a54069a87962, type: 3}
-      - {fileID: 5512209405239277046, guid: 6d675d10768bb4801b92567f53d39715, type: 3}
-      - {fileID: 574355631921386893, guid: c7865ca61ec3f4be087f1a1f98ae6605, type: 3}
+      - {fileID: 5512209405239277046, guid: b978b58e3f0b643daa5803429fb39e2c, type: 3}
 --- !u!1 &801433107573193894
 GameObject:
   m_ObjectHideFlags: 0
@@ -63813,7 +63810,6 @@ MonoBehaviour:
   ropGrab:
   - {fileID: 1944686478}
   - {fileID: 261625215}
-  - {fileID: 1997849634}
   buildingfallProtectionGroup:
   - GroupName: WireRopeFixeLine
     headGroupobj: {fileID: 1398298861}

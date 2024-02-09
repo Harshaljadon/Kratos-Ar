@@ -437,7 +437,7 @@ namespace AR2
             }
 
             UpdateIntermediate();
-            visualizeSelectionComponent.ShowComponent(m_OverRoofSystemUI.AnchorIndex, currentlifeLineComponent);
+            visualizeSelectionComponent.ShowComponent(GetAchorIndex(), currentlifeLineComponent) ;
             //Invoke(nameof(ShowComponent), .2f);
         }
 

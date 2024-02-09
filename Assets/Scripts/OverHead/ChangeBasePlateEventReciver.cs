@@ -14,6 +14,7 @@ public class ChangeBasePlateEventReciver : MonoBehaviour
     {
         overHeadSystemUI = FindAnyObjectByType<OverHeadSystemUI>();
         overHeadSystemUI.changeIntermediateBasePlateEvent += OverHeadSystemUI_changeIntermediateBasePlateEvent;
+        overHeadSystemUI.UpDateBasePlate(true);
     }
 
     private void OverHeadSystemUI_changeIntermediateBasePlateEvent(int obj)
@@ -29,6 +30,7 @@ public class ChangeBasePlateEventReciver : MonoBehaviour
 
     private void OnDisable()
     {
+        overHeadSystemUI.UpDateBasePlate(false);
         overHeadSystemUI.changeIntermediateBasePlateEvent -= OverHeadSystemUI_changeIntermediateBasePlateEvent;
         
     }
